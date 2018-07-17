@@ -11,7 +11,7 @@ def list_tiles():
     # Makes a text file of the tifs in the folder
     os.system('ls *.tif > spot_carbon_tiles.txt')
 
-    file_list = []
+    total_file_list = []
 
     # Iterates through the text file to get the names of the tiles and appends them to list
     with open('spot_carbon_tiles.txt', 'r') as tile:
@@ -22,12 +22,12 @@ def list_tiles():
             end = num - 5
             tile_short = line[start:end]
 
-            file_list.append(tile_short)
+            total_file_list.append(tile_short)
 
     # Some tile names were in multiple ecoregions (e.g., 30N_110W in Palearctic and Nearctic). This produces only the unique tile names.
-    file_list = set(file_list)
+    unique_file_list = set(total_file_list)
 
-    return file_list
+    return unique_file_list, total_file_list
 
 def merge_overlapping_tiles():
 
@@ -132,8 +132,8 @@ else:
     print "  Tiles already copied"
 
 print "Getting list of tiles..."
-file_list = list_tiles()
-print "  Tile list retrieved. There are", len(file_list), "tiles in the dataset"
+unique_file_list, total_file_list = list_tiles()
+print "  Tile list retrieved. There are", len(total_file_list), "tiles total and", len(unique_file_list), "unique tiles in the dataset"
 
 print "Checking for tiles to merge because they are in multiple ecoregions"
 merge_overlapping_tiles()
