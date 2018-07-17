@@ -49,21 +49,24 @@ def merge_overlapping_tiles():
         print "tile1", i, tile1_short
 
         for j, tile2 in enumerate(file_list):
-            # Extracts the tile name from the file name
-            num = len(tile2)
-            start = num - 13
-            end = num - 5
-            tile2_short = tile2[start:end]
 
-            print "tile2", j, tile2_short
+            if j > i:
+                
+                # Extracts the tile name from the file name
+                num = len(tile2)
+                start = num - 13
+                end = num - 5
+                tile2_short = tile2[start:end]
 
-            if tile1_short == tile2_short:
+                print "tile2", j, tile2_short
 
-                print "Overlap: tiles", tile1, "and", tile2
+                if tile1_short == tile2_short:
 
-            else:
+                    print "Overlap: tiles", tile1, "and", tile2
 
-                print "No overlap: tiles", tile1, "and", tile2
+                else:
+
+                    print "No overlap: tiles", tile1, "and", tile2
 
 
 
