@@ -40,18 +40,18 @@ def merge_overlapping_tiles():
             file_list.append(line)
 
     # for i, tile1 in enumerate(file_list):
-    for i, tile1 in enumerate(file_list[0:2]):
+    for i, tile1 in enumerate(file_list):
         # Extracts the tile name from the file name
         num = len(tile1)
         start = num - 13
         end = num - 5
         tile1_short = tile1[start:end]
 
+        # print "tile1", tile1_short
         print "tile1", tile1_short
-        # print "tile1", i, tile1_short
 
 
-        for j, tile2 in enumerate(file_list):
+        for j, tile2 in enumerate(file_list[0:4]):
 
             if j > i:
 
@@ -61,7 +61,7 @@ def merge_overlapping_tiles():
                 end = num - 5
                 tile2_short = tile2[start:end]
 
-                print "tile2", j, tile2_short
+                print "tile2", tile2_short
 
                 if tile1_short == tile2_short:
 
