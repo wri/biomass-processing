@@ -40,7 +40,7 @@ def merge_overlapping_tiles():
             file_list.append(line)
 
     # for i, tile1 in enumerate(file_list):
-    for tile1 in file_list(0:2):
+    for tile1 in file_list[0:2]:
         # Extracts the tile name from the file name
         num = len(tile1)
         start = num - 13
