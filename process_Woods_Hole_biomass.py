@@ -27,6 +27,7 @@ def list_tiles():
     # Some tile names were in multiple ecoregions (e.g., 30N_110W in Palearctic and Nearctic). This produces only the unique tile names.
     unique_file_list = set(total_file_list)
 
+    # The lists of unique tile names and all tile names
     return unique_file_list, total_file_list
 
 def merge_overlapping_tiles():
@@ -38,20 +39,22 @@ def merge_overlapping_tiles():
 
             file_list.append(line)
 
-    # Iterates through the text file to get the names of the tiles and appends them to list
-    for i, tile1 in enumerate(file_list):
+    # for i, tile1 in enumerate(file_list):
+    for tile1 in file_list(0:2):
         # Extracts the tile name from the file name
         num = len(tile1)
         start = num - 13
         end = num - 5
         tile1_short = tile1[start:end]
 
-        print "tile1", i, tile1_short
+        print "tile1", tile1_short
+        # print "tile1", i, tile1_short
+
 
         for j, tile2 in enumerate(file_list):
 
             if j > i:
-                
+
                 # Extracts the tile name from the file name
                 num = len(tile2)
                 start = num - 13
