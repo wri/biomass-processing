@@ -48,7 +48,7 @@ def merge_overlapping_tiles():
         tile1_short = tile1[start:end]
 
         # print "tile1", tile1_short
-        print "tile1", tile11
+        print "tile1", tile1
 
 
         for j, tile2 in enumerate(file_list[i:4]):
