@@ -42,7 +42,7 @@ def merge_overlapping_tiles():
             end = num - 5
             tile1_short = tile1[start:end]
 
-            print tile1_short
+            print "tile1", tile1_short
 
             for tile2 in tile:
                 # Extracts the tile name from the file name
@@ -51,7 +51,7 @@ def merge_overlapping_tiles():
                 end = num - 5
                 tile2_short = tile2[start:end]
 
-                print tile2_short
+                print "tile2", tile2_short
 
                 if tile1_short == tile2_short:
 
@@ -113,7 +113,7 @@ def process_tile(tile_id):
     print "    Tile copied to s3"
 
 
-# Processes the tiles
+### Actually processes the tiles
 
 # Location of the tiles on s3
 s3_locn = 's3://WHRC-carbon/WHRC_V4/As_provided/'
@@ -135,7 +135,7 @@ print "Getting list of tiles..."
 file_list = list_tiles()
 print "  Tile list retrieved. There are", len(file_list), "tiles in the dataset"
 
-print "Merging tiles that are in multiple ecoregions"
+print "Checking for tiles to merge because they are in multiple ecoregions"
 merge_overlapping_tiles()
 print "  Tiles merged"
 
