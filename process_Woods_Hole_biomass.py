@@ -80,23 +80,23 @@ def process_tile(tile_id):
     print "    Tile copied to s3"
 
 
-# Runs the process
+# Processes the tiles
 
 # Location of the tiles on s3
 s3_locn = 's3://WHRC-carbon/WHRC_V4/As_provided/'
 
-print "Checking if tiles are already downloaded..."
-
-if os.path.exists('./Palearctic_MapV4_60N_010W.tif') == False:
-
-    # Creates a list of all the tiles on s3
-    print "  Copying raw tiles to spot machine..."
-    s3_to_spot(s3_locn)
-    print "    Raw tiles copied"
-
-else:
-
-    print "  Tiles already copied"
+# print "Checking if tiles are already downloaded..."
+#
+# if os.path.exists('./Palearctic_MapV4_60N_010W.tif') == False:
+#
+#     # Creates a list of all the tiles on s3
+#     print "  Copying raw tiles to spot machine..."
+#     s3_to_spot(s3_locn)
+#     print "    Raw tiles copied"
+#
+# else:
+#
+#     print "  Tiles already copied"
 
 print "Creating vrt..."
 vrtname = create_vrt()

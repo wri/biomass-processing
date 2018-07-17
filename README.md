@@ -1,5 +1,3 @@
-"biomass-processing" 
-
 Notes on unit conversion throughout biomass processing
 
 Woods Hole version 4 (June 2018) delivery data units: 
@@ -23,7 +21,7 @@ TSV from these >30% TCD tiles:
     units: megagrams of biomass / hectare
 
 Run Hadoop:
-    code: biomass.toDouble * area of pixels in m2 / 10000.0 (10,000 is used to convert area m2 to area ha)
+    code: biomass.toDouble * area of pixels in m2 / 10000.0 (10,000 is used to convert area m2 to area ha) (not in this repo)
     simplified: biomass megagrams / ha of that pixel * area ha of that pixel
     final units: megagrams of biomass / pixel
 
