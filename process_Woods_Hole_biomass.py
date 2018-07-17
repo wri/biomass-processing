@@ -47,13 +47,9 @@ def merge_overlapping_tiles():
         end = num - 5
         tile1_short = tile1[start:end]
 
-        # print "tile1", tile1_short
         print "tile1", tile1
 
-
         for j, tile2 in enumerate(file_list[i+1:len(file_list)]):
-
-            print len(file_list)
 
             # Extracts the tile name from the file name
             num = len(tile2)
@@ -66,6 +62,7 @@ def merge_overlapping_tiles():
             if tile1_short == tile2_short:
 
                 print "Overlap: tiles", tile1, "and", tile2
+                merge = []
 
             else:
 
@@ -80,44 +77,44 @@ def create_vrt():
 
     return vrtname
 
-# # Gets the bounding coordinates for each tile
-# def coords(tile_id):
-#     NS = tile_id.split("_")[0][-1:]
-#     EW = tile_id.split("_")[1][-1:]
-#
-#     if NS == 'S':
-#         ymax = -1 * int(tile_id.split("_")[0][:2])
-#     else:
-#         ymax = int(str(tile_id.split("_")[0][:2]))
-#
-#     if EW == 'W':
-#         xmin = -1 * int(str(tile_id.split("_")[1][:3]))
-#     else:
-#         xmin = int(str(tile_id.split("_")[1][:3]))
-#
-#     ymin = str(int(ymax) - 10)
-#     xmax = str(int(xmin) + 10)
-#
-#     return str(ymax), str(xmin), str(ymin), str(xmax)
-#
-# # Chops the vrt into Hansen-compatible 10x10 chunks
-# def process_tile(tile_id):
-#
-#     print "  Getting coordinates for {}".format(tile_id), "..."
-#     ymax, xmin, ymin, xmax = coords(tile_id)
-#     print "    Coordinates are: ymax-", ymax, "; ymin-", ymin, "; xmax-", xmax, "; xmin-", xmin
-#
-#     print "  Warping tile..."
-#     out = '{}_carbon.tif'.format(tile_id)
-#     warp = ['gdalwarp', '-t_srs', 'EPSG:4326', '-co', 'COMPRESS=LZW', '-tr', '0.00025', '0.00025', '-tap', '-te', xmin, ymin, xmax, ymax, '-dstnodata', '-9999', vrtname, out]
-#     subprocess.check_call(warp)
-#     print "    Tile warped"
-#
-#     print "  Copying tile to s3..."
-#     s3_folder = 's3://WHRC-carbon/WHRC_V4/Processed/'
-#     cmd = ['aws', 's3', 'cp', out, s3_folder]
-#     subprocess.check_call(cmd)
-#     print "    Tile copied to s3"
+# Gets the bounding coordinates for each tile
+def coords(tile_id):
+    NS = tile_id.split("_")[0][-1:]
+    EW = tile_id.split("_")[1][-1:]
+
+    if NS == 'S':
+        ymax = -1 * int(tile_id.split("_")[0][:2])
+    else:
+        ymax = int(str(tile_id.split("_")[0][:2]))
+
+    if EW == 'W':
+        xmin = -1 * int(str(tile_id.split("_")[1][:3]))
+    else:
+        xmin = int(str(tile_id.split("_")[1][:3]))
+
+    ymin = str(int(ymax) - 10)
+    xmax = str(int(xmin) + 10)
+
+    return str(ymax), str(xmin), str(ymin), str(xmax)
+
+# Chops the vrt into Hansen-compatible 10x10 chunks
+def process_tile(tile_id):
+
+    print "  Getting coordinates for {}".format(tile_id), "..."
+    ymax, xmin, ymin, xmax = coords(tile_id)
+    print "    Coordinates are: ymax-", ymax, "; ymin-", ymin, "; xmax-", xmax, "; xmin-", xmin
+
+    print "  Warping tile..."
+    out = '{}_carbon.tif'.format(tile_id)
+    warp = ['gdalwarp', '-t_srs', 'EPSG:4326', '-co', 'COMPRESS=LZW', '-tr', '0.00025', '0.00025', '-tap', '-te', xmin, ymin, xmax, ymax, '-dstnodata', '-9999', vrtname, out]
+    subprocess.check_call(warp)
+    print "    Tile warped"
+
+    print "  Copying tile to s3..."
+    s3_folder = 's3://WHRC-carbon/WHRC_V4/Processed/'
+    cmd = ['aws', 's3', 'cp', out, s3_folder]
+    subprocess.check_call(cmd)
+    print "    Tile copied to s3"
 
 
 ### Actually processes the tiles
@@ -142,9 +139,9 @@ print "Getting list of tiles..."
 unique_file_list, total_file_list = list_tiles()
 print "  Tile list retrieved. There are", len(total_file_list), "tiles total and", len(unique_file_list), "unique tiles in the dataset"
 
-print "Checking for tiles to merge (tiles that are in multiple ecoregions)"
-merge_overlapping_tiles()
-print "  Tiles merged"
+# print "Checking for tiles to merge (tiles that are in multiple ecoregions)"
+# merge_overlapping_tiles()
+# print "  Tiles merged"
 
 print "Creating vrt..."
 vrtname = create_vrt()
