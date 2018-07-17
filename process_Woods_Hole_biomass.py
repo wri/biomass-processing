@@ -34,8 +34,8 @@ def merge_overlapping_tiles():
     file_list = []
 
     # Iterates through the text file to get the names of the tiles and appends them to list
-    with open('spot_carbon_tiles.txt', 'r') as tile:
-        for tile1 in tile:
+    with open('spot_carbon_tiles.txt', 'r') as tile_a:
+        for tile1 in tile_a:
             # Extracts the tile name from the file name
             num = len(tile1)
             start = num - 13
@@ -44,22 +44,23 @@ def merge_overlapping_tiles():
 
             print "tile1", tile1_short
 
-            for tile2 in tile:
-                # Extracts the tile name from the file name
-                num = len(tile2)
-                start = num - 13
-                end = num - 5
-                tile2_short = tile2[start:end]
+            with open('spot_carbon_tiles.txt', 'r') as tile_b:
+                for tile2 in tile_b:
+                    # Extracts the tile name from the file name
+                    num = len(tile2)
+                    start = num - 13
+                    end = num - 5
+                    tile2_short = tile2[start:end]
 
-                print "tile2", tile2_short
+                    print "tile2", tile2_short
 
-                if tile1_short == tile2_short:
+                    if tile1_short == tile2_short:
 
-                    print "tiles overlap"
+                        print "tiles overlap"
 
-                else:
+                    else:
 
-                    print "tiles do not overlap"
+                        print "tiles do not overlap"
 
 
 
@@ -135,7 +136,7 @@ print "Getting list of tiles..."
 unique_file_list, total_file_list = list_tiles()
 print "  Tile list retrieved. There are", len(total_file_list), "tiles total and", len(unique_file_list), "unique tiles in the dataset"
 
-print "Checking for tiles to merge because they are in multiple ecoregions"
+print "Checking for tiles to merge (tiles that are in multiple ecoregions)"
 merge_overlapping_tiles()
 print "  Tiles merged"
 
