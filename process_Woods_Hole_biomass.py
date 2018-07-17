@@ -7,26 +7,15 @@ def s3_to_spot(folder):
     dld = ['aws', 's3', 'cp', folder, '.', '--recursive', '--exclude', '*.xml']
     subprocess.check_call(dld)
 
-# Creates a virtual raster mosaic
-def create_vrt():
-
-    vrtname = 'carbon_v4.vrt'
-    os.system('gdalbuildvrt {0} *.tif'.format(vrtname))
-
-    return vrtname
-
-# Gets a list of all the unique biomass tiles
 def list_tiles():
-
     # Makes a text file of the tifs in the folder
     os.system('ls *.tif > spot_carbon_tiles.txt')
 
-    file_list= []
+    file_list = []
 
     # Iterates through the text file to get the names of the tiles and appends them to list
     with open('spot_carbon_tiles.txt', 'r') as tile:
         for line in tile:
-
             # Extracts the tile name from the file name
             num = len(line)
             start = num - 13
@@ -39,6 +28,50 @@ def list_tiles():
     file_list = set(file_list)
 
     return file_list
+
+def merge_overlapping_tiles():
+
+    file_list = []
+
+    # Iterates through the text file to get the names of the tiles and appends them to list
+    with open('spot_carbon_tiles.txt', 'r') as tile:
+        for tile1 in tile:
+            # Extracts the tile name from the file name
+            num = len(tile1)
+            start = num - 13
+            end = num - 5
+            tile1_short = tile1[start:end]
+
+            print tile1_short
+
+            for tile2 in tile:
+                # Extracts the tile name from the file name
+                num = len(tile2)
+                start = num - 13
+                end = num - 5
+                tile2_short = tile2[start:end]
+
+                print tile2_short
+
+                if tile1_short == tile2_short:
+
+                    print "tiles overlap"
+
+                else:
+
+                    print "tiles do not overlap"
+
+
+
+
+
+# Creates a virtual raster mosaic
+def create_vrt():
+
+    vrtname = 'carbon_v4.vrt'
+    os.system('gdalbuildvrt {0} *.tif'.format(vrtname))
+
+    return vrtname
 
 # Gets the bounding coordinates for each tile
 def coords(tile_id):
@@ -85,26 +118,30 @@ def process_tile(tile_id):
 # Location of the tiles on s3
 s3_locn = 's3://WHRC-carbon/WHRC_V4/As_provided/'
 
-# print "Checking if tiles are already downloaded..."
-#
-# if os.path.exists('./Palearctic_MapV4_60N_010W.tif') == False:
-#
-#     # Creates a list of all the tiles on s3
-#     print "  Copying raw tiles to spot machine..."
-#     s3_to_spot(s3_locn)
-#     print "    Raw tiles copied"
-#
-# else:
-#
-#     print "  Tiles already copied"
+print "Checking if tiles are already downloaded..."
 
-print "Creating vrt..."
-vrtname = create_vrt()
-print "  vrt created"
+if os.path.exists('./Palearctic_MapV4_70N_030W.tif') == False:
+
+    # Creates a list of all the tiles on s3
+    print "  Copying raw tiles to spot machine..."
+    s3_to_spot(s3_locn)
+    print "    Raw tiles copied"
+
+else:
+
+    print "  Tiles already copied"
 
 print "Getting list of tiles..."
 file_list = list_tiles()
 print "  Tile list retrieved. There are", len(file_list), "tiles in the dataset"
+
+print "Merging tiles that are in multiple ecoregions"
+merge_overlapping_tiles()
+print "  Tiles merged"
+
+print "Creating vrt..."
+vrtname = create_vrt()
+print "  vrt created"
 
 # # For a single processor
 # for tile in file_list:
@@ -114,7 +151,6 @@ print "  Tile list retrieved. There are", len(file_list), "tiles in the dataset"
 
 # For multiple processors
 count = multiprocessing.cpu_count()
-pool = multiprocessing.Pool(count/2)
+pool = multiprocessing.Pool(count/4)
 pool.map(process_tile, file_list)
-
 
