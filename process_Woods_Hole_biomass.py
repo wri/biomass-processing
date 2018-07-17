@@ -152,5 +152,5 @@ print "  vrt created"
 # For multiple processors
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/4)
-pool.map(process_tile, file_list)
+pool.map(process_tile, unique_file_list)
 
