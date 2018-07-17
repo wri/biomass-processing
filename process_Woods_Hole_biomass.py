@@ -33,34 +33,37 @@ def merge_overlapping_tiles():
 
     file_list = []
 
+    with open('spot_carbon_tiles.txt', 'r') as tile:
+        for line in tile:
+
+            file_list.append(line)
+
     # Iterates through the text file to get the names of the tiles and appends them to list
-    with open('spot_carbon_tiles.txt', 'r') as tile_a:
-        for tile1 in tile_a:
+    for tile1 in file_list:
+        # Extracts the tile name from the file name
+        num = len(tile1)
+        start = num - 13
+        end = num - 5
+        tile1_short = tile1[start:end]
+
+        print "tile1", tile1_short
+
+        for tile2 in file_list:
             # Extracts the tile name from the file name
-            num = len(tile1)
+            num = len(tile2)
             start = num - 13
             end = num - 5
-            tile1_short = tile1[start:end]
+            tile2_short = tile2[start:end]
 
-            print "tile1", tile1_short
+            print "tile2", tile2_short
 
-            with open('spot_carbon_tiles.txt', 'r') as tile_b:
-                for tile2 in tile_b:
-                    # Extracts the tile name from the file name
-                    num = len(tile2)
-                    start = num - 13
-                    end = num - 5
-                    tile2_short = tile2[start:end]
+            if tile1_short == tile2_short:
 
-                    print "tile2", tile2_short
+                print "Overlap: tiles", tile1, "and", tile2
 
-                    if tile1_short == tile2_short:
+            else:
 
-                        print "tiles overlap"
-
-                    else:
-
-                        print "tiles do not overlap"
+                print "No overlap: tiles", tile1, "and", tile2
 
 
 
