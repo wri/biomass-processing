@@ -51,7 +51,7 @@ def merge_overlapping_tiles():
         print "tile1", tile1_short
 
 
-        for j, tile2 in enumerate(file_list[0:4]):
+        for j, tile2 in enumerate(file_list[i:4]):
 
             # if j > i:
 
