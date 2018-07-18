@@ -52,9 +52,9 @@ def mask_biomass_by_tcd(tile_id):
     out = '--outfile={}'.format(outname)
 
     print "Masking tile", tile_id, "..."
-    cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', tcd_tile,  calc, out, '--NoDataValue=-9999', '--co', 'COMPRESS=LZW']
+    cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', tcd_tile,  calc, out, '--NoDataValue=0', '--co', 'COMPRESS=LZW']
     subprocess.check_call(cmd)
-    print "    Tile masked"
+    print "  Tile masked"
 
     # print "  Copying tile to s3..."
     # s3_folder = 's3://WHRC-carbon/WHRC_V4/More_than_{}tcd/'.format(tcd_mask)
@@ -70,7 +70,7 @@ s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
 
 print "Checking if biomass tiles are already downloaded..."
 
-if os.path.exists('./60N_010W_biomass.tif') == False:
+if os.path.exists('./60N_010W_biomass.tif') == False:     # This is a bad way to check if files are downloaded but doing it anyhow
 
     # Creates a list of all the tiles on s3
     print "  Copying biomass tiles to spot machine..."
@@ -90,7 +90,7 @@ s3_tcd_locn = 's3://gfw2-data/forest_cover/2000_treecover/'
 
 print "Checking if tree cover density tiles are already downloaded..."
 
-if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:
+if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:   # This is a bad way to check if files are downloaded but doing it anyhow
 
     # Creates a list of all the tiles on s3
     print "  Copying TCD tiles to spot machine..."
