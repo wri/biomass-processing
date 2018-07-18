@@ -104,7 +104,7 @@ else:
 # For multiple processors
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/3)
-pool.map(mask_biomass, biomass_file_list)
+pool.map(mask_biomass_by_tcd, biomass_file_list)
 
 # # For a single processor
 # for tile in biomass_file_list:
