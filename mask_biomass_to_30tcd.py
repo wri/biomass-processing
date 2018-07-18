@@ -56,11 +56,11 @@ def mask_biomass_by_tcd(tile_id):
     subprocess.check_call(cmd)
     print "  Tile masked"
 
-    # print "  Copying tile to s3..."
-    # s3_folder = 's3://WHRC-carbon/WHRC_V4/More_than_{}tcd/'.format(tcd_mask)
-    # cmd = ['aws', 's3', 'cp', outname, s3_folder]
-    # subprocess.check_call(cmd)
-    # print "    Tile copied to s3"
+    print "  Copying tile to s3..."
+    s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
+    cmd = ['aws', 's3', 'cp', outname, s3_folder]
+    subprocess.check_call(cmd)
+    print "    Tile copied to s3"
 
 
 ### Actually masks the biomass tiles by tree cover density
