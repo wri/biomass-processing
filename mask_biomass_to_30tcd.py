@@ -18,8 +18,8 @@ def list_tiles():
         for line in tile:
             # Extracts the tile name from the file name
             num = len(line)
-            start = num - 20
-            end = num - 12
+            start = num - 21
+            end = num - 13
             tile_short = line[start:end]
 
             biomass_file_list.append(tile_short)
