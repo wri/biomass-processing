@@ -30,6 +30,8 @@ def list_tiles():
 
 def mask_biomass(tile_id):
 
+    print tile_id
+
     tcd_mask = 30
 
     biomass_tile = 's3://WHRC-carbon/WHRC_V4/Processed/{}_biomass.tif'.format(tile_id)
@@ -37,7 +39,7 @@ def mask_biomass(tile_id):
 
     calc = '--calc=A*(B>{})'.format(tcd_mask)
 
-    print "  Masking tile", tile_id, "..."
+    print "Masking tile", tile_id, "..."
     out = '{0}_biomass_at_{1}tcd.tif'.format(tile_id, tcd_mask)
     cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', tcd_tile,  calc, out, '--NoDataValue=-9999', '--co', 'COMPRESS=LZW']
     subprocess.check_call(cmd)
