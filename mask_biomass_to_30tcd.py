@@ -34,8 +34,8 @@ def mask_biomass_by_tcd(tile_id):
 
     tcd_mask = 30
 
-    biomass_tile = 's3://WHRC-carbon/WHRC_V4/Processed/{}_biomass.tif'.format(tile_id)
-    tcd_tile = 's3://gfw2-data/forest_cover/2000_treecover/Hansen_GFC2014_treecover2000_{}.tif'.format(tile_id)
+    biomass_tile = '{}_biomass.tif'.format(tile_id)
+    tcd_tile = 'Hansen_GFC2014_treecover2000_{}.tif'.format(tile_id)
 
     calc = '--calc=A*(B>{})'.format(tcd_mask)
 
