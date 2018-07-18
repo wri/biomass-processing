@@ -88,7 +88,7 @@ else:
 
 
 # # For a single processor
-# for tile in unique_file_list:
+# for tile in file_list:
 #     print "Processing tile {}".format(tile)
 #     process_tile(tile)
 #     print "   Tile processed"
@@ -96,4 +96,4 @@ else:
 # For multiple processors
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/3)
-pool.map(mask_biomass, unique_file_list)
+pool.map(mask_biomass, file_list)
