@@ -124,7 +124,7 @@ s3_locn = 's3://WHRC-carbon/WHRC_V4/As_provided/'
 
 print "Checking if tiles are already downloaded..."
 
-if os.path.exists('./Palearctic_MapV4_70N_030W.tif') == False:
+if os.path.exists('./Neotropic_MapV4_30N_110W.tif') == False:
 
     # Creates a list of all the tiles on s3
     print "  Copying raw tiles to spot machine..."
