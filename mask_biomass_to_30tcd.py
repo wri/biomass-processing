@@ -28,7 +28,7 @@ def list_tiles():
     return biomass_file_list
 
 
-def mask_biomass(tile_id):
+def mask_biomass_by_tcd(tile_id):
 
     print tile_id
 
@@ -89,13 +89,13 @@ else:
     print "  TCD tiles already on machine"
 
 
-# # For a single processor
-# for tile in file_list:
-#     print "Processing tile {}".format(tile)
-#     process_tile(tile)
-#     print "   Tile processed"
+# For a single processor
+for tile in file_list:
+    print "Masking tile {}".format(tile)
+    mask_biomass_by_tcd(tile)
+    print "   Tile masked"
 
-# For multiple processors
-count = multiprocessing.cpu_count()
-pool = multiprocessing.Pool(count/3)
-pool.map(mask_biomass, file_list)
+# # For multiple processors
+# count = multiprocessing.cpu_count()
+# pool = multiprocessing.Pool(count/3)
+# pool.map(mask_biomass, file_list)
