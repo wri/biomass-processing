@@ -96,7 +96,7 @@ else:
 
     print "  Tiles already copied"
 
-print "Getting list of tiles..."
+print "Getting list of tiles..."            #For v4 of the Woods Hole data, there were 315 unique tiles (counts tiles in multiple regions only once)
 unique_file_list, total_file_list = list_tiles()
 print "  Tile list retrieved. There are", len(total_file_list), "tiles total and", len(unique_file_list), "unique tiles in the dataset"
 

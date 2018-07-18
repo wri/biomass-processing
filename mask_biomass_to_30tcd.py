@@ -58,7 +58,7 @@ s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
 
 print "Checking if biomass tiles are already downloaded..."
 
-if os.path.exists('./Palearctic_MapV4_60N_010W.tif') == False:
+if os.path.exists('./60N_010W_biomass.tif') == False:
 
     # Creates a list of all the tiles on s3
     print "  Copying biomass tiles to spot machine..."
@@ -69,17 +69,16 @@ else:
 
     print "  Biomass tiles already on machine"
 
+print "Getting list of biomass tiles..."
+unique_file_list, total_file_list = list_tiles()
+print "  Tile list retrieved. There are", len(total_file_list), "tiles total and", len(unique_file_list), "unique tiles in the dataset"
+
 # Location of the tree cover density tiles on s3
 s3_tcd_locn = 's3://gfw2-data/forest_cover/2000_treecover/'
 
 print "Checking if tree cover density tiles are already downloaded..."
 
-print "Getting list of tiles..."
-unique_file_list, total_file_list = list_tiles()
-print "  Tile list retrieved. There are", len(total_file_list), "tiles total and", len(unique_file_list), "unique tiles in the dataset"
-
-
-if os.path.exists('./Hansen_GFC2014_treecover2000_50N_050W.tif') == False:
+if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:
 
     # Creates a list of all the tiles on s3
     print "  Copying TCD tiles to spot machine..."
