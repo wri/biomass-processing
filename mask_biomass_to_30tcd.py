@@ -39,9 +39,11 @@ def mask_biomass_by_tcd(tile_id):
 
     calc = '--calc=A*(B>{})'.format(tcd_mask)
 
+    outfile = '--outfile={0}_biomass_at_{1}tcd.tif'.format(tile_id, tcd_mask)
+
     print "Masking tile", tile_id, "..."
-    out = '{0}_biomass_at_{1}tcd.tif'.format(tile_id, tcd_mask)
-    cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', tcd_tile,  calc, out, '--NoDataValue=-9999', '--co', 'COMPRESS=LZW']
+
+    cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', tcd_tile,  calc, outfile, '--NoDataValue=-9999', '--co', 'COMPRESS=LZW']
     subprocess.check_call(cmd)
     print "    Tile masked"
 
