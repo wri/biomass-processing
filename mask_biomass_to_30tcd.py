@@ -30,8 +30,6 @@ def list_tiles():
 
 def mask_biomass_by_tcd(tile_id):
 
-    print tile_id
-
     tcd_mask = 30
 
     biomass_tile = '{}_biomass.tif'.format(tile_id)
@@ -49,7 +47,7 @@ def mask_biomass_by_tcd(tile_id):
 
     print "  Copying tile to s3..."
     s3_folder = 's3://WHRC-carbon/WHRC_V4/More_than_{}tcd/'.format(tcd_mask)
-    cmd = ['aws', 's3', 'cp', out, s3_folder]
+    cmd = ['aws', 's3', 'cp', outfile, s3_folder]
     subprocess.check_call(cmd)
     print "    Tile copied to s3"
 
