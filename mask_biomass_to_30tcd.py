@@ -2,15 +2,20 @@ import subprocess
 import os
 import multiprocessing
 
+# Copies the tiles in the s3 folder to the spot machine
 def s3_to_spot(folder):
 
     dld = ['aws', 's3', 'cp', folder, '.', '--recursive']
     subprocess.check_call(dld)
 
+
+# Lists all the biomass tiles on the spot machine
 def list_tiles():
-    # Makes a text file of the tifs in the folder
+
+    # Makes a text file of the tifs in the folder on the spot machine
     os.system('ls *biomass.tif > processed_biomass_tiles.txt')
 
+    # List for the tile names
     biomass_file_list = []
 
     # Iterates through the text file to get the names of the tiles and appends them to list
@@ -24,21 +29,26 @@ def list_tiles():
 
             biomass_file_list.append(tile_short)
 
-    # The lists of unique tile names and all tile names
+    # The lists of tile names
     return biomass_file_list
 
 
 def mask_biomass_by_tcd(tile_id):
 
+    # The tree cover density below which biomass will be masked (only biomass pixels on TCD pixels > this value will be output)
     tcd_mask = 30
 
+    # Names of the input biomass and TCD tiles
     biomass_tile = '{}_biomass.tif'.format(tile_id)
     tcd_tile = 'Hansen_GFC2014_treecover2000_{}.tif'.format(tile_id)
 
-    calc = '--calc=A*(B>{})'.format(tcd_mask)
-
+    # Output file name
     outname = '{0}_biomass_at_{1}tcd.tif'.format(tile_id, tcd_mask)
 
+    # Equation argument for masking biomass below TCD threshold
+    calc = '--calc=A*(B>{})'.format(tcd_mask)
+
+    # Argument for outputting file
     out = '--outfile={}'.format(outname)
 
     print "Masking tile", tile_id, "..."
@@ -46,12 +56,14 @@ def mask_biomass_by_tcd(tile_id):
     subprocess.check_call(cmd)
     print "    Tile masked"
 
-    print "  Copying tile to s3..."
-    s3_folder = 's3://WHRC-carbon/WHRC_V4/More_than_{}tcd/'.format(tcd_mask)
-    cmd = ['aws', 's3', 'cp', outname, s3_folder]
-    subprocess.check_call(cmd)
-    print "    Tile copied to s3"
+    # print "  Copying tile to s3..."
+    # s3_folder = 's3://WHRC-carbon/WHRC_V4/More_than_{}tcd/'.format(tcd_mask)
+    # cmd = ['aws', 's3', 'cp', outname, s3_folder]
+    # subprocess.check_call(cmd)
+    # print "    Tile copied to s3"
 
+
+### Actually masks the biomass tiles by tree cover density
 
 # Location of the biomass tiles on s3
 s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
@@ -70,8 +82,8 @@ else:
     print "  Biomass tiles already on machine"
 
 print "Getting list of biomass tiles..."
-file_list = list_tiles()
-print "  Biomass tile list retrieved. There are", len(file_list), "biomass tiles total."
+biomass_file_list = list_tiles()
+print "  Biomass tile list retrieved. There are", len(biomass_file_list), "biomass tiles total."
 
 # Location of the tree cover density tiles on s3
 s3_tcd_locn = 's3://gfw2-data/forest_cover/2000_treecover/'
@@ -89,12 +101,11 @@ else:
 
     print "  TCD tiles already on machine"
 
+# For multiple processors
+count = multiprocessing.cpu_count()
+pool = multiprocessing.Pool(count/3)
+pool.map(mask_biomass, biomass_file_list)
 
-# For a single processor
-for tile in file_list:
-    mask_biomass_by_tcd(tile)
-
-# # For multiple processors
-# count = multiprocessing.cpu_count()
-# pool = multiprocessing.Pool(count/3)
-# pool.map(mask_biomass, file_list)
+# # For a single processor
+# for tile in biomass_file_list:
+#     mask_biomass_by_tcd(tile)

@@ -2,15 +2,20 @@ import subprocess
 import os
 import multiprocessing
 
-# Copies the tiles in the s3 folder to the spot machine.
+# Copies the tiles in the s3 folder to the spot machine
 def s3_to_spot(folder):
+
     dld = ['aws', 's3', 'cp', folder, '.', '--recursive', '--exclude', '*.xml']
     subprocess.check_call(dld)
 
+
+# Lists all the tiles on the spot machine
 def list_tiles():
-    # Makes a text file of the tifs in the folder
+
+    # Makes a text file of the tifs in the folder on the spot machine
     os.system('ls *.tif > spot_biomass_tiles.txt')
 
+    # List for the tile names
     total_file_list = []
 
     # Iterates through the text file to get the names of the tiles and appends them to list
@@ -30,13 +35,16 @@ def list_tiles():
     # The lists of unique tile names and all tile names
     return unique_file_list, total_file_list
 
+
 # Creates a virtual raster mosaic
 def create_vrt():
 
+    # Names and creates the virtual raster mosaic
     vrtname = 'biomass_v4.vrt'
     os.system('gdalbuildvrt {0} *.tif'.format(vrtname))
 
     return vrtname
+
 
 # Gets the bounding coordinates for each tile
 def coords(tile_id):
@@ -58,7 +66,8 @@ def coords(tile_id):
 
     return str(ymax), str(xmin), str(ymin), str(xmax)
 
-# Chops the vrt into Hansen-compatible 10x10 chunks
+
+# Cuts the vrt into Hansen-compatible 10x10 chunks
 def process_tile(tile_id):
 
     print "  Getting coordinates for {}".format(tile_id), "..."
@@ -85,7 +94,7 @@ s3_locn = 's3://WHRC-carbon/WHRC_V4/As_provided/'
 
 print "Checking if tiles are already downloaded..."
 
-if os.path.exists('./Neotropic_MapV4_30N_110W.tif') == False:
+if os.path.exists('./Neotropic_MapV4_30N_110W.tif') == False:       # This is a bad way to check if files are downloaded but doing it anyhow
 
     # Creates a list of all the tiles on s3
     print "  Copying raw tiles to spot machine..."
@@ -104,14 +113,14 @@ print "Creating vrt..."
 vrtname = create_vrt()
 print "  vrt created"
 
+# For multiple processors
+count = multiprocessing.cpu_count()
+pool = multiprocessing.Pool(count/3)
+pool.map(process_tile, unique_file_list)
+
 # # For a single processor
 # for tile in unique_file_list:
 #     print "Processing tile {}".format(tile)
 #     process_tile(tile)
 #     print "   Tile processed"
-
-# For multiple processors
-count = multiprocessing.cpu_count()
-pool = multiprocessing.Pool(count/3)
-pool.map(process_tile, unique_file_list)
 
