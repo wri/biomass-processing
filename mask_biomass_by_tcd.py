@@ -72,7 +72,7 @@ def mask_biomass_by_tcd(tile_id):
     stats = srcband.GetStatistics(True, True)
     print "  Tile stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
 
-    if stats[0] > 1:
+    if stats[0] > 0:
 
         print "  Data found in tile. Copying tile to s3..."
         s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
