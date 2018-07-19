@@ -8,6 +8,7 @@
 import subprocess
 import os
 import multiprocessing
+from osgeo import gdal
 
 # Copies the tiles in the s3 folder to the spot machine
 def s3_to_spot(folder):
@@ -63,11 +64,28 @@ def mask_biomass_by_tcd(tile_id):
     subprocess.check_call(cmd)
     print "  Tile masked"
 
-    print "  Copying tile to s3..."
-    s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
-    cmd = ['aws', 's3', 'cp', outname, s3_folder]
-    subprocess.check_call(cmd)
-    print "    Tile copied to s3"
+    print "Checking if masked tile contains any data in it...".format(tile_id)
+    # Source: http://gis.stackexchange.com/questions/90726
+    # open raster and choose band to find min, max
+    gtif = gdal.Open(outname)
+    srcband = gtif.GetRasterBand(1)
+
+    stats = srcband.GetStatistics(True, True)
+
+    print "[ STATS ] =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
+
+    if stats[0] > 1 and stats[1] < 20000:
+
+        print "  Copying tile to s3..."
+        s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
+        cmd = ['aws', 's3', 'cp', outname, s3_folder]
+        subprocess.check_call(cmd)
+        print "    Tile copied to s3"
+
+    else:
+
+        print "  No Data found for {}, skipping".format(tile_id)
+
 
 
 ### Actually masks the biomass tiles by tree cover density
@@ -77,16 +95,16 @@ s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
 
 print "Checking if biomass tiles are already downloaded..."
 
-if os.path.exists('./60N_010W_biomass.tif') == False:     # This is a bad way to check if files are downloaded but doing it anyhow
-
-    # Copies all the tiles in the s3 folder
-    print "  Copying biomass tiles to spot machine..."
-    s3_to_spot(s3_biomass_locn)
-    print "    Biomass tiles copied"
-
-else:
-
-    print "  Biomass tiles already on machine"
+# if os.path.exists('./60N_010W_biomass.tif') == False:     # This is a bad way to check if files are downloaded but doing it anyhow
+#
+#     # Copies all the tiles in the s3 folder
+#     print "  Copying biomass tiles to spot machine..."
+#     s3_to_spot(s3_biomass_locn)
+#     print "    Biomass tiles copied"
+#
+# else:
+#
+#     print "  Biomass tiles already on machine"
 
 print "Getting list of biomass tiles..."
 biomass_file_list = list_tiles()
