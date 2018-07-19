@@ -66,17 +66,15 @@ def mask_biomass_by_tcd(tile_id):
 
     print "Checking if masked tile contains any data in it...".format(tile_id)
     # Source: http://gis.stackexchange.com/questions/90726
-    # open raster and choose band to find min, max
+    # Opens raster and chooses band to find min, max
     gtif = gdal.Open(outname)
     srcband = gtif.GetRasterBand(1)
-
     stats = srcband.GetStatistics(True, True)
+    print "  Tile stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
 
-    print "[ STATS ] =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
+    if stats[0] > 1:
 
-    if stats[0] > 1 and stats[1] < 20000:
-
-        print "  Copying tile to s3..."
+        print "  Data found in tile. Copying tile to s3..."
         s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
         cmd = ['aws', 's3', 'cp', outname, s3_folder]
         subprocess.check_call(cmd)
@@ -84,7 +82,7 @@ def mask_biomass_by_tcd(tile_id):
 
     else:
 
-        print "  No Data found for {}, skipping".format(tile_id)
+        print "  No data found. Not copying tile"
 
 
 
@@ -95,16 +93,16 @@ s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
 
 print "Checking if biomass tiles are already downloaded..."
 
-# if os.path.exists('./60N_010W_biomass.tif') == False:     # This is a bad way to check if files are downloaded but doing it anyhow
-#
-#     # Copies all the tiles in the s3 folder
-#     print "  Copying biomass tiles to spot machine..."
-#     s3_to_spot(s3_biomass_locn)
-#     print "    Biomass tiles copied"
-#
-# else:
-#
-#     print "  Biomass tiles already on machine"
+if os.path.exists('./60N_010W_biomass.tif') == False:     # This is a bad way to check if files are downloaded but doing it anyhow
+
+    # Copies all the tiles in the s3 folder
+    print "  Copying biomass tiles to spot machine..."
+    s3_to_spot(s3_biomass_locn)
+    print "    Biomass tiles copied"
+
+else:
+
+    print "  Biomass tiles already on machine"
 
 print "Getting list of biomass tiles..."
 biomass_file_list = list_tiles()
@@ -113,18 +111,18 @@ print "  Biomass tile list retrieved. There are", len(biomass_file_list), "bioma
 # Location of the tree cover density tiles on s3
 s3_tcd_locn = 's3://gfw2-data/forest_cover/2000_treecover/'
 
-# print "Checking if tree cover density tiles are already downloaded..."
-#
-# if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:   # This is a bad way to check if files are downloaded but doing it anyhow
-#
-#     # Creates a list of all the tiles on s3
-#     print "  Copying TCD tiles to spot machine..."
-#     s3_to_spot(s3_tcd_locn)
-#     print "    TCD tiles copied"
-#
-# else:
-#
-#     print "  TCD tiles already on machine"
+print "Checking if tree cover density tiles are already downloaded..."
+
+if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:   # This is a bad way to check if files are downloaded but doing it anyhow
+
+    # Creates a list of all the tiles on s3
+    print "  Copying TCD tiles to spot machine..."
+    s3_to_spot(s3_tcd_locn)
+    print "    TCD tiles copied"
+
+else:
+
+    print "  TCD tiles already on machine"
 
 # For multiple processors
 count = multiprocessing.cpu_count()
