@@ -1,3 +1,10 @@
+### This script masks Woods Hole biomass tiles by a user-defined tree cover density.
+### It requires both biomass tiles and TCD tiles.
+### Biomass pixels where TCD<threshold will be output as NoData while biomass pixels with TCD>threshold
+### will be unchanged.
+
+### David Gibbs, World Resources Institute, started July 2018
+
 import subprocess
 import os
 import multiprocessing

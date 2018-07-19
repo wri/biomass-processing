@@ -1,3 +1,9 @@
+### This script processes raw Woods Hole biomass tiles to conform to Hansen loss and tree cover density tiles
+### in terms of pixel size, tile extent, pixel alignment, compression, etc.
+### It requires only biomass tiles.
+
+### David Gibbs, World Resources Institute, started July 2018
+
 import subprocess
 import os
 import multiprocessing
