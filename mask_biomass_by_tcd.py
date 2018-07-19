@@ -113,18 +113,18 @@ print "  Biomass tile list retrieved. There are", len(biomass_file_list), "bioma
 # Location of the tree cover density tiles on s3
 s3_tcd_locn = 's3://gfw2-data/forest_cover/2000_treecover/'
 
-print "Checking if tree cover density tiles are already downloaded..."
-
-if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:   # This is a bad way to check if files are downloaded but doing it anyhow
-
-    # Creates a list of all the tiles on s3
-    print "  Copying TCD tiles to spot machine..."
-    s3_to_spot(s3_tcd_locn)
-    print "    TCD tiles copied"
-
-else:
-
-    print "  TCD tiles already on machine"
+# print "Checking if tree cover density tiles are already downloaded..."
+#
+# if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:   # This is a bad way to check if files are downloaded but doing it anyhow
+#
+#     # Creates a list of all the tiles on s3
+#     print "  Copying TCD tiles to spot machine..."
+#     s3_to_spot(s3_tcd_locn)
+#     print "    TCD tiles copied"
+#
+# else:
+#
+#     print "  TCD tiles already on machine"
 
 # For multiple processors
 count = multiprocessing.cpu_count()
