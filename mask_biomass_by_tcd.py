@@ -79,7 +79,7 @@ print "Checking if biomass tiles are already downloaded..."
 
 if os.path.exists('./60N_010W_biomass.tif') == False:     # This is a bad way to check if files are downloaded but doing it anyhow
 
-    # Creates a list of all the tiles on s3
+    # Copies all the tiles in the s3 folder
     print "  Copying biomass tiles to spot machine..."
     s3_to_spot(s3_biomass_locn)
     print "    Biomass tiles copied"

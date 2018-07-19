@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="622439cb-4adb-4ddb-996f-f6ca8137a0f2" name="Default" comment="">
+    <list default="true" id="8af35147-26b4-4cd2-bc46-0700e87be747" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mask_biomass_by_tcd.py" beforeDir="false" afterPath="$PROJECT_DIR$/mask_biomass_by_tcd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/process_Woods_Hole_biomass.py" beforeDir="false" afterPath="$PROJECT_DIR$/process_Woods_Hole_biomass.py" afterDir="false" />
     </list>
@@ -14,25 +15,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mask_biomass_by_tcd.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
+      <file leaf-file-name="process_Woods_Hole_biomass.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/process_Woods_Hole_biomass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="5" selection-end-column="61" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="663">
+              <caret line="116" lean-forward="true" selection-start-line="113" selection-end-line="116" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="process_Woods_Hole_biomass.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/process_Woods_Hole_biomass.py">
+      <file leaf-file-name="mask_biomass_by_tcd.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="75" selection-start-line="1" selection-start-column="75" selection-end-line="1" selection-end-column="75" />
+            <state relative-caret-position="595">
+              <caret line="90" selection-start-line="90" selection-end-line="92" selection-end-column="96" />
               <folding>
-                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#326#343#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,17 +49,18 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="56" />
-    <option name="y" value="103" />
-    <option name="width" value="1364" />
-    <option name="height" value="728" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-1288" />
+    <option name="y" value="-258" />
+    <option name="width" value="1296" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -73,8 +72,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -93,32 +94,33 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="622439cb-4adb-4ddb-996f-f6ca8137a0f2" name="Default" comment="" />
-      <created>1531947017042</created>
+      <changelist id="8af35147-26b4-4cd2-bc46-0700e87be747" name="Default" comment="" />
+      <created>1532007397257</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1531947017042</updated>
+      <updated>1532007397257</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="-1288" y="-258" width="1296" height="1000" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.213125" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3125" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
@@ -127,22 +129,19 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
+    <entry file="file://$PROJECT_DIR$/process_Woods_Hole_biomass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="5" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="663">
+          <caret line="116" lean-forward="true" selection-start-line="113" selection-end-line="116" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/process_Woods_Hole_biomass.py">
+    <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="75" selection-start-line="1" selection-start-column="75" selection-end-line="1" selection-end-column="75" />
+        <state relative-caret-position="595">
+          <caret line="90" selection-start-line="90" selection-end-line="92" selection-end-column="96" />
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#326#343#0" expanded="true" />
           </folding>
         </state>
       </provider>

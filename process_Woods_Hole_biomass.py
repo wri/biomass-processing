@@ -102,7 +102,7 @@ print "Checking if tiles are already downloaded..."
 
 if os.path.exists('./Neotropic_MapV4_30N_110W.tif') == False:       # This is a bad way to check if files are downloaded but doing it anyhow
 
-    # Creates a list of all the tiles on s3
+    # Copies all the tiles in the s3 folder
     print "  Copying raw tiles to spot machine..."
     s3_to_spot(s3_locn)
     print "    Raw tiles copied"
