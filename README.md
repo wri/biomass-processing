@@ -17,7 +17,7 @@ QC the processed WH tiles:
 
 Mask tiles by > 30% tree cover density:
     Code: mask_biomass_by_tcd.py (contained in this repo)
-	Process: Masks the biomass tiles to whatever the input TCD is (generally 30%). Biomass pixels on TCD pixels <30% will get NoData values of 0.
+	Process: Masks the biomass tiles to whatever the input TCD is (generally 30%). Biomass pixels on TCD pixels <30% will get NoData values of 0. Tiles that have no biomass pixels with values (no TCD>30) will not get saved to s3.
     Units of output tiles: megagrams of biomass/hectare
 	
 QC the TCD-masked WH tiles:
