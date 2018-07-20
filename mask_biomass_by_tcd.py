@@ -82,7 +82,7 @@ def mask_biomass_by_tcd(tile_id):
 
     else:
 
-        print "  No data found. Not copying tile"
+        print "  No data found. Not copying tile."
 
 
 
@@ -128,6 +128,8 @@ else:
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/3)
 pool.map(mask_biomass_by_tcd, biomass_file_list)
+
+# This produced 259 tiles-- it's fewer than the 315 that went into the masking because many of the tiles didn't have biomass after masking
 
 # # For a single processor
 # for tile in biomass_file_list:
