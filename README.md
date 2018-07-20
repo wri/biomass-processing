@@ -1,4 +1,4 @@
-Biomass processing procedures for Woods Hole Research Center version 4, deliverd June 2018:
+### Biomass processing procedures for Woods Hole Research Center version 4, delivered June 2018:
 
 Woods Hole version 4 delivery: 
     File example: s3://WHRC-carbon/WHRC_V4/As_provided/Afrotropic_MapV4_00N_000E.tif
@@ -7,7 +7,7 @@ Woods Hole version 4 delivery:
 
 Make WH biomass tiles match Hansen tiles:
     Code: process_Woods_Hole_biomass.py (contained in this repo)
-    Process: Makes sure that rasters match Hansen grid (cell size + -tap)... sample raster appears to match but good to make sure all input data is standardized
+    Process: Makes sure that rasters match Hansen grid (cell size + -tap)... Sample delivered raster appears to match but good to make sure all input data is standardized.
     Units of output tiles: megagrams of biomass/hectare
     Note: This script handles the tiles with data from multiple ecoregions. The output tiles will have the proper data from both ecoregions in the input tiles.
     
