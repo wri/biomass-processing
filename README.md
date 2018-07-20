@@ -21,7 +21,7 @@ Mask tiles by > 30% tree cover density:
    - Units of output tiles: megagrams of biomass/hectare
 	
 QC the TCD-masked WH tiles:
-     Process: Copy select input (processed) and output (masked) tiles, raw Woods Hole tiles, and UMD tree cover density tiles to local computer and load in QGIS or ArcMap. Check whether the values of the masked tiles are the same as the values of the raw Woods Hole tiles except where TCD pixels are less than the input amount. Make sure that where TCD < threshold, the masked tiles show NoData values.
+   - Process: Copy select input (processed) and output (masked) tiles, raw Woods Hole tiles, and UMD tree cover density tiles to local computer and load in QGIS or ArcMap. Check whether the values of the masked tiles are the same as the values of the raw Woods Hole tiles except where TCD pixels are less than the input amount. Make sure that where TCD < threshold, the masked tiles show NoData values.
 
 TSV from these >30% TCD tiles:
     source example: 
