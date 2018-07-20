@@ -23,12 +23,6 @@ Mask tiles by > 30% tree cover density:
 QC the TCD-masked WH tiles:
    - Process: Copy select input (processed) and output (masked) tiles, raw Woods Hole tiles, and UMD tree cover density tiles to local computer and load in QGIS or ArcMap. Check whether the values of the masked tiles are the same as the values of the raw Woods Hole tiles except where TCD pixels are less than the input amount. Make sure that where TCD < threshold, the masked tiles show NoData values.
 
-TSV from these >30% TCD tiles:
-    source example: 
-    code: s3://gfw2-data/alerts-tsv/batch-processing/sam-biomass-to-tsv.zip (not in this repo)
-    process: convert raster to TSV
-    units: megagrams of biomass/hectare
-
 Run Hadoop:
     code: biomass.toDouble * area of pixels in m2 / 10000.0 (10,000 is used to convert area m2 to area ha) (not in this repo)
     simplified: biomass megagrams/ha of that pixel * area ha of that pixel
