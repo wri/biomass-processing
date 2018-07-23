@@ -115,7 +115,7 @@ print "Checking if tree cover density tiles are already downloaded..."
 
 if os.path.exists('./Hansen_GFC2014_treecover2000_60N_010W.tif') == False:   # This is a bad way to check if files are downloaded but doing it anyhow
 
-    # Creates a list of all the tiles on s3
+    # Copies tree cover density tiles to spot machine
     print "  Copying TCD tiles to spot machine..."
     s3_to_spot(s3_tcd_locn)
     print "    TCD tiles copied"
