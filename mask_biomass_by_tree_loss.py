@@ -24,10 +24,7 @@ def list_tiles():
     with open('spot_biomass_tiles.txt', 'r') as tile:
         for line in tile:
             # Extracts the tile name from the file name
-            num = len(line)
-            start = num - 13
-            end = num - 5
-            tile_short = line[start:end]
+            tile_short = line[0:7]
 
             file_list.append(tile_short)
 
@@ -50,7 +47,7 @@ def mask_biomass_by_loss(tile_id):
     # Argument for outputting file
     out = '--outfile={}'.format(outname)
 
-    print "Masking tile", tile_id, "..."
+    print "Masking tile by loss pixels", tile_id, "..."
     cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', loss_tile,  calc, out, '--NoDataValue=0', '--co', 'COMPRESS=LZW', '--overwrite']
     subprocess.check_call(cmd)
     print "  Tile masked"
