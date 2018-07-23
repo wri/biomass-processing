@@ -16,22 +16,10 @@
       <file leaf-file-name="mask_biomass_by_tree_loss.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mask_biomass_by_tree_loss.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+            <state relative-caret-position="255">
+              <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
               <folding>
                 <element signature="e#2#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="process_Woods_Hole_biomass.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/process_Woods_Hole_biomass.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="41" column="44" lean-forward="true" selection-start-line="6" selection-end-line="41" selection-end-column="44" />
-              <folding>
-                <element signature="e#286#303#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -40,8 +28,8 @@
       <file leaf-file-name="mask_biomass_by_tcd.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="801">
-              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -146,27 +134,27 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="801">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/process_Woods_Hole_biomass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="41" column="44" lean-forward="true" selection-start-line="6" selection-end-line="41" selection-end-column="44" />
+        <state relative-caret-position="289">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="e#286#303#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mask_biomass_by_tcd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mask_biomass_by_tree_loss.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+        <state relative-caret-position="255">
+          <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
           <folding>
             <element signature="e#2#19#0" expanded="true" />
           </folding>
