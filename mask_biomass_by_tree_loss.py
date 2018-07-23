@@ -24,7 +24,7 @@ def list_tiles():
     with open('spot_biomass_tiles.txt', 'r') as tile:
         for line in tile:
             # Extracts the tile name from the file name
-            tile_short = line[0:7]
+            tile_short = line[0:8]
 
             file_list.append(tile_short)
 
