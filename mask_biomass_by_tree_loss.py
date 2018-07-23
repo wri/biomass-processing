@@ -35,15 +35,19 @@ def list_tiles():
 
 def mask_biomass_by_loss(tile_id):
 
+    biomass_to_c = 0.5
+    c_to_co2 = 3.67
+    megagrams_to_tons = 1
+
     # Names of the input biomass and TCD tiles
     biomass_tile = '{}_biomass.tif'.format(tile_id)
     loss_tile = '{}.tif'.format(tile_id)
 
     # Output file name
-    outname = '{0}_biomass_masked_by_loss.tif'.format(tile_id)
+    outname = '{0}_tCO2_masked_by_loss.tif'.format(tile_id)
 
     # Equation argument for masking biomass below TCD threshold
-    calc = '--calc=A*(B>0)'
+    calc = '--calc=A*(B>0)*{0}*{1}*{2}'.format(biomass_to_c, c_to_co2, megagrams_to_tons)
 
     # Argument for outputting file
     out = '--outfile={}'.format(outname)
