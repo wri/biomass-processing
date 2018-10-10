@@ -37,3 +37,7 @@ Convert aboveground WH biomass to emissions:
    - Units of output tiles: tCO2/hectare
    - Note: This should be run every time a new Hansen loss year is delivered
    - Note: It is not used for further analyses at this point; it is just for putting on the Open Data Portal for people to download
+   
+QC the emissions conversion:
+   - Process: Loaded sample biomass 2000, Hansen loss, and output tiles into ArcMap and checked whether the output pixels had the right value and were showing up only where there were both biomass and loss pixels.
+   - Process: Loaded sample biomass 2000 and Hansen tiles that didn't have output emissions tiles and confirmed that those tiles did not have any pixels with both biomass and loss.
