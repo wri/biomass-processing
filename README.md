@@ -32,8 +32,8 @@ Run Hadoop:
     (no cumulative summing required because this is all one TCD threshold (> 30))
 
 Convert aboveground WH biomass to emissions:
-	- Code: biomass_to_emissions.py (contained in this repo)
-	- Process: It masks WH biomass 2000 tiles to Hansen loss pixels and converts those pixels from biomass to emissions
-	- Units of output tiles: tCO2/hectare
-	- Note: This should be run every time a new Hansen loss year is delivered
-	- Note: It is not used for further analyses at this point; it is just for putting on the Open Data Portal for people to download
+   - Code: biomass_to_emissions.py (contained in this repo)
+   - Process: It masks WH biomass 2000 tiles to Hansen loss pixels and converts those pixels from biomass to emissions
+   - Units of output tiles: tCO2/hectare
+   - Note: This should be run every time a new Hansen loss year is delivered
+   - Note: It is not used for further analyses at this point; it is just for putting on the Open Data Portal for people to download

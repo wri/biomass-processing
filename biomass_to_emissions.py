@@ -69,7 +69,7 @@ def mask_biomass_by_loss(tile_id):
     if stats[0] > 0:
 
         print "  Data found in tile. Copying tile to s3..."
-        s3_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/tCO2_ABG_emissions/'
+        s3_folder = 'gfw2-data/climate/Hansen_emissions/'
         cmd = ['aws', 's3', 'cp', outname, s3_folder]
         subprocess.check_call(cmd)
         print "    Tile copied to s3"
