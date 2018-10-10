@@ -1,4 +1,5 @@
-
+# Converts the biomass 2000 tiles to CO2 emissions tiles (tons CO2/ha)
+# wherever there is a Hansen loss pixel.
 
 import subprocess
 import os
@@ -8,7 +9,7 @@ from osgeo import gdal
 # Copies the tiles in the s3 folder to the spot machine
 def s3_to_spot(folder):
 
-    dld = ['aws', 's3', 'cp', folder, '.', '--recursive', '--exclude', '*.xml']
+    dld = ['aws', 's3', 'cp', folder, '.', '--recursive']
     subprocess.check_call(dld)
 
 
@@ -52,7 +53,7 @@ def mask_biomass_by_loss(tile_id):
     # Argument for outputting file
     out = '--outfile={}'.format(outname)
 
-    print "Masking tile", tile_id, "by loss pixels..."
+    print "Masking tile", tile_id, "by loss pixels and converting from megagrams biomass to tons CO2..."
     cmd = ['gdal_calc.py', '-A', biomass_tile, '-B', loss_tile,  calc, out, '--NoDataValue=0', '--co', 'COMPRESS=LZW', '--overwrite']
     subprocess.check_call(cmd)
     print "  Tile masked"
@@ -81,24 +82,24 @@ def mask_biomass_by_loss(tile_id):
 ## Actually masks the biomass tiles by tree cover density
 
 # Location of the biomass tiles on s3
-s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
+s3_biomass_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
 
-# # Copies all the tiles in the s3 folder
-# print "  Copying biomass tiles to spot machine..."
-# s3_to_spot(s3_biomass_locn)
-# print "    Biomass tiles copied"
+# Location of the annual tree cover loss tiles on s3
+s3_tcd_locn = 's3://gfw2-data/forest_change/hansen_2017/'
+
+# Copies all the tiles in the s3 folder
+print "  Copying biomass tiles to spot machine..."
+s3_to_spot(s3_biomass_locn)
+print "    Biomass tiles copied"
 
 print "Getting list of biomass tiles..."
 biomass_file_list = list_tiles()
 print "  Biomass tile list retrieved. There are", len(biomass_file_list), "biomass tiles total."
 
-# Location of the tree cover density tiles on s3
-s3_tcd_locn = 's3://gfw2-data/forest_change/hansen_2017/'
-
-# # Copies tree loss tiles to spot machine
-# print "  Copying TCD tiles to spot machine..."
-# s3_to_spot(s3_tcd_locn)
-# print "    TCD tiles copied"
+# Copies tree loss tiles to spot machine
+print "  Copying TCD tiles to spot machine..."
+s3_to_spot(s3_tcd_locn)
+print "    TCD tiles copied"
 
 # For multiple processors
 count = multiprocessing.cpu_count()
