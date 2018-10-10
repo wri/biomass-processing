@@ -1,4 +1,4 @@
-# Converts the biomass 2000 tiles to CO2 emissions tiles (tons CO2/ha)
+# Converts the aboveground biomass 2000 tiles to aboveground CO2 emissions tiles (tons CO2/ha)
 # wherever there is a Hansen loss pixel.
 
 import subprocess
@@ -45,7 +45,7 @@ def mask_biomass_by_loss(tile_id):
     loss_tile = '{}.tif'.format(tile_id)
 
     # Output file name
-    outname = '{0}_tCO2_masked_by_loss.tif'.format(tile_id)
+    outname = '{0}_tCO2_ABG_masked_by_loss.tif'.format(tile_id)
 
     # Equation argument for masking biomass below TCD threshold
     calc = '--calc=A*(B>0)*{0}*{1}*{2}'.format(biomass_to_c, c_to_co2, megagrams_to_tons)
@@ -69,7 +69,7 @@ def mask_biomass_by_loss(tile_id):
     if stats[0] > 0:
 
         print "  Data found in tile. Copying tile to s3..."
-        s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_by_loss/'
+        s3_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/tCO2_ABG_emissions/'
         cmd = ['aws', 's3', 'cp', outname, s3_folder]
         subprocess.check_call(cmd)
         print "    Tile copied to s3"
