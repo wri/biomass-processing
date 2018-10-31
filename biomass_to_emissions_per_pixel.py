@@ -1,5 +1,5 @@
-# Converts the aboveground biomass 2000 tiles to aboveground CO2 emissions tiles (tons CO2/pixel)
-# wherever there is a Hansen loss pixel.
+# Converts the aboveground CO2 emissions per hectare tiles to aboveground CO2 emissions per pixel (tCO2/pixel)
+# wherever there is an emissions pixel.
 
 import subprocess
 import os
@@ -17,7 +17,7 @@ def s3_to_spot(folder):
 def list_tiles():
 
     # Makes a text file of the tifs in the folder on the spot machine
-    os.system('ls *tCO2_ha.tif > spot_emis_tiles.txt')
+    os.system('ls *tCO2_ha*.tif > spot_emis_tiles.txt')
 
     # List for the tile names
     file_list = []
@@ -33,9 +33,11 @@ def list_tiles():
     # The lists of unique tile names and all tile names
     return file_list
 
+
 # Converts aboveground biomass per hectare to emissions from aboveground biomass per hectare
 def emissions_per_pixel(tile_id):
 
+    # m2 per hectare
     m2_per_ha = 100*100
 
     # Names of the input biomass and TCD tiles
@@ -45,7 +47,8 @@ def emissions_per_pixel(tile_id):
     # Output file name
     outname = '{}_tCO2_pixel_AGB_masked_by_loss.tif'.format(tile_id)
 
-    # Equation argument for masking biomass below TCD threshold
+    # Equation argument for converting emissions from per hectare to per pixel.
+    # First, multiplies the per hectare emissions by the area of the pixel in m2, then divides by the number of m2 in a hectare.
     calc = '--calc=A*B/{}'.format(m2_per_ha)
 
     # Argument for outputting file
@@ -74,14 +77,14 @@ s3_area_locn = 's3://gfw2-data/analyses/area_28m/'
 # List of tiles to download
 downloads = [s3_emiss_ha_locn, s3_area_locn]
 
-print "  Copying tiles to spot machine"
-for data in downloads:
-    s3_to_spot(data)
-print "    Tiles copied to spot machine"
+# print "  Copying input tiles to spot machine"
+# for data in downloads:
+#     s3_to_spot(data)
+# print "    Input tiles copied to spot machine"
 
-print "Getting list of biomass tiles..."
+print "Getting list of emissions tiles..."
 emis_file_list = list_tiles()
-print "  Biomass tile list retrieved. There are", len(emis_file_list), "biomass tiles total."
+print "  Emissions tile list retrieved. There are", len(emis_file_list), "emissions tiles total."
 
 # For multiple processors
 count = multiprocessing.cpu_count()
