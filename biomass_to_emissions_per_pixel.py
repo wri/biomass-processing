@@ -54,7 +54,7 @@ def emissions_per_pixel(tile_id):
     # Argument for outputting file
     out = '--outfile={}'.format(outname)
 
-    print "Converting from tons CO2/ha to tons CO2/pixel..."
+    print "Converting {} from tons CO2/ha to tons CO2/pixel...".format(tile_id)
     cmd = ['gdal_calc.py', '-A', emis_ha_tile, '-B', area_tile,  calc, out, '--NoDataValue=0', '--co', 'COMPRESS=LZW', '--overwrite']
     subprocess.check_call(cmd)
     print "  Emissions calculated"
@@ -88,7 +88,7 @@ print "  Emissions tile list retrieved. There are", len(emis_file_list), "emissi
 
 # For multiple processors
 count = multiprocessing.cpu_count()
-pool = multiprocessing.Pool(count/3)
+pool = multiprocessing.Pool(count/5)
 pool.map(emissions_per_pixel, emis_file_list)
 
 # # For a single processor
