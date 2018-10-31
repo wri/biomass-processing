@@ -1,4 +1,4 @@
-# Converts the aboveground biomass 2000 tiles to aboveground CO2 emissions tiles (tons CO2/ha)
+# Converts the aboveground biomass 2000 tiles to aboveground CO2 emissions tiles (tons CO2/hectare)
 # wherever there is a Hansen loss pixel.
 
 import subprocess
@@ -33,8 +33,8 @@ def list_tiles():
     # The lists of unique tile names and all tile names
     return file_list
 
-
-def mask_biomass_by_loss(tile_id):
+# Converts aboveground biomass per hectare to emissions from aboveground biomass per hectare
+def biomass_to_emissions_ha(tile_id):
 
     biomass_to_c = 0.5
     c_to_co2 = 3.67
@@ -45,7 +45,7 @@ def mask_biomass_by_loss(tile_id):
     loss_tile = '{}.tif'.format(tile_id)
 
     # Output file name
-    outname = '{0}_tCO2_ABG_masked_by_loss.tif'.format(tile_id)
+    outname = '{0}_tCO2_ha_AGB_masked_by_loss.tif'.format(tile_id)
 
     # Equation argument for masking biomass below TCD threshold
     calc = '--calc=A*(B>0)*{0}*{1}*{2}'.format(biomass_to_c, c_to_co2, megagrams_to_tons)
@@ -69,7 +69,7 @@ def mask_biomass_by_loss(tile_id):
     if stats[0] > 0:
 
         print "  Data found in tile. Copying tile to s3..."
-        s3_folder = 'gfw2-data/climate/Hansen_emissions/2017_loss'
+        s3_folder = 's3://gfw2-data/climate/Hansen_emissions/2017_loss/per_hectare/'
         cmd = ['aws', 's3', 'cp', outname, s3_folder]
         subprocess.check_call(cmd)
         print "    Tile copied to s3"
@@ -104,7 +104,7 @@ print "    TCD tiles copied"
 # For multiple processors
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/3)
-pool.map(mask_biomass_by_loss, biomass_file_list)
+pool.map(biomass_to_emissions_ha, biomass_file_list)
 
 # # For a single processor
 # for tile in biomass_file_list:
