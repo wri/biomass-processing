@@ -77,20 +77,20 @@ s3_area_locn = 's3://gfw2-data/analyses/area_28m/'
 # List of tiles to download
 downloads = [s3_emiss_ha_locn, s3_area_locn]
 
-# print "  Copying input tiles to spot machine"
-# for data in downloads:
-#     s3_to_spot(data)
-# print "    Input tiles copied to spot machine"
+print "  Copying input tiles to spot machine"
+for data in downloads:
+    s3_to_spot(data)
+print "    Input tiles copied to spot machine"
 
 print "Getting list of emissions tiles..."
 emis_file_list = list_tiles()
 print "  Emissions tile list retrieved. There are", len(emis_file_list), "emissions tiles total."
 
-# # For multiple processors
-# count = multiprocessing.cpu_count()
-# pool = multiprocessing.Pool(count/5)
-# pool.map(emissions_per_pixel, emis_file_list)
+# For multiple processors
+count = multiprocessing.cpu_count()
+pool = multiprocessing.Pool(count/8)
+pool.map(emissions_per_pixel, emis_file_list)
 
-# For a single processor
-for tile in emis_file_list:
-    emissions_per_pixel(tile)
+# # For a single processor
+# for tile in emis_file_list:
+#     emissions_per_pixel(tile)
