@@ -86,7 +86,8 @@ print "Getting list of emissions tiles..."
 emis_file_list = list_tiles()
 print "  Emissions tile list retrieved. There are", len(emis_file_list), "emissions tiles total."
 
-# For multiple processors
+# For multiple processors. This froze when I tried it with count/3, 4, or 5, so I jumped down to count/8 and it
+# didn't freeze.
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/8)
 pool.map(emissions_per_pixel, emis_file_list)

@@ -31,13 +31,23 @@ Run Hadoop:
     summarized —> megagrams of biomass per polyname / iso / adm1 / adm2
     (no cumulative summing required because this is all one TCD threshold (> 30))
 
-Convert aboveground WH biomass to emissions:
-   - Code: biomass_to_emissions.py (contained in this repo)
+Convert aboveground WH biomass to tCO2 emissions/hectare:
+   - Code: biomass_to_emissions_per_hecrate.py (contained in this repo)
    - Process: It masks WH biomass 2000 tiles to Hansen loss pixels and converts those pixels from biomass to emissions
    - Units of output tiles: tCO2/hectare
    - Note: This should be run every time a new Hansen loss year is delivered
    - Note: It is not used for further analyses at this point; it is just for putting on the Open Data Portal for people to download
    
-QC the emissions conversion:
+QC the conversion to emissions/ha:
    - Process: Loaded sample biomass 2000, Hansen loss, and output tiles into ArcMap and checked whether the output pixels had the right value and were showing up only where there were both biomass and loss pixels.
    - Process: Loaded sample biomass 2000 and Hansen tiles that didn't have output emissions tiles and confirmed that those tiles did not have any pixels with both biomass and loss.
+      
+Convert aboveground tCO2/ha emissions to tCO2/pixel emissions:
+   - Code: biomass_to_emissions_per_pixel.py (contained in this repo)
+   - Process: It uses a raster of the area of each pixel in m2 to convert emissions from ha to pixel
+   - Units of output tiles: tCO2/pixel
+   - Note: This should be run every time a new Hansen loss year is delivered
+   - Note: It is not used for further analyses at this point; it is just for putting on the Open Data Portal for people to download. It is made available for people to use for zonal statistics, being better for that than emissions/ha (easier to sum).
+   
+QC the emissions conversion:
+   - Process: Loaded emissions/ha and area rasters into ArcMap for two tiles and checked the arithmetic for a few pixels in each tile.
