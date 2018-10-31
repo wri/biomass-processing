@@ -86,11 +86,11 @@ print "Getting list of emissions tiles..."
 emis_file_list = list_tiles()
 print "  Emissions tile list retrieved. There are", len(emis_file_list), "emissions tiles total."
 
-# For multiple processors
-count = multiprocessing.cpu_count()
-pool = multiprocessing.Pool(count/5)
-pool.map(emissions_per_pixel, emis_file_list)
+# # For multiple processors
+# count = multiprocessing.cpu_count()
+# pool = multiprocessing.Pool(count/5)
+# pool.map(emissions_per_pixel, emis_file_list)
 
-# # For a single processor
-# for tile in emis_file_list:
-#     emissions_per_pixel(tile)
+# For a single processor
+for tile in emis_file_list:
+    emissions_per_pixel(tile)
