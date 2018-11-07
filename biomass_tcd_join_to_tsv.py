@@ -49,27 +49,24 @@ tcd_dir = 's3://gfw2-data/forest_cover/2000_treecover/'
 # for input in download_list:
 #     s3_folder_download('{}'.format(input), '.')
 
-# For copying individual tiles to spot machine for testing
-for tile in biomass_tile_list:
-
-    s3_file_download('{0}Hansen_GFC2014_treecover2000_{1}.tif'.format(tcd_dir, tile), '.')  # tree cover density 2000 tile
-    s3_file_download('{0}{1}_biomass.tif'.format(biomass_dir, tile), '.')  # biomass 2000 tile
-
-
 out_locn = 's3://gfw-files/dgibbs/test_join_biomass2000_tcd2000/'
-
-# grid_1degree = r'./data/lossdata_footprint/footprint_1degree.shp'
 
 # Iterates through tiles to convert them to tsvs
 for tile in biomass_tile_list:
 
     print "Processing tile", tile
 
+    biomass_local = r'/home/ubuntu/data/biomass/{}_biomass.tif'.format(tile)
+    tcd_local = r'/home/ubuntu/data/tcd/Hansen_GFC2014_treecover2000_{0}.tif'.format(tile)
+
+    s3_file_download('{0}Hansen_GFC2014_treecover2000_{1}.tif'.format(tcd_dir, tile), tcd_local)  # tree cover density 2000 tile
+    s3_file_download('{0}{1}_biomass.tif'.format(biomass_dir, tile), biomass_local)  # biomass 2000 tile
+
     biomass = '{}_biomass.tif'.format(tile)
     tcd = 'Hansen_GFC2014_treecover2000_{}.tif'.format(tile)
 
     ras_cwd = r'/home/ubuntu/raster-to-tsv'
-    ras_to_vec_cmd = ['python', 'write-tsv.py', '--datasets', biomass, tcd, '--s3-output', out_locn]
+    ras_to_vec_cmd = ['python', 'write-tsv.py', '--datasets', biomass_local, tcd_local, '--s3-output', out_locn]
     ras_to_vec_cmd += ['--csv-process', 'area', '--prefix', 'biomass2000_tcd2000', '--separate']
 
     # subprocess.check_call(ras_to_vec_cmd, cwd=ras_cwd)
