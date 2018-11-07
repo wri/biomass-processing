@@ -43,11 +43,11 @@ biomass_dir = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
 
 tcd_dir = 's3://gfw2-data/forest_cover/2000_treecover/'
 
-# For downloading all tiles in the input folders
-download_list = [biomass_dir, tcd_dir]
-
-for input in download_list:
-    s3_folder_download('{}'.format(input), '.')
+# # For downloading all tiles in the input folders
+# download_list = [biomass_dir, tcd_dir]
+#
+# for input in download_list:
+#     s3_folder_download('{}'.format(input), '.')
 
 # For copying individual tiles to spot machine for testing
 for tile in biomass_tile_list:
