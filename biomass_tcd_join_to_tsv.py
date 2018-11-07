@@ -36,6 +36,7 @@ def list_tiles():
 print "Making list of biomass tiles..."
 # biomass_tile_list = list_tiles()
 biomass_tile_list = ['10N_080W', '40N_120E'] # test tiles
+biomass_tile_list = ['10N_080W'] # test tiles
 print "  Biomass tile list retrieved. There are", len(biomass_tile_list), "biomass tiles total."
 
 # Location of the biomass tiles on s3
