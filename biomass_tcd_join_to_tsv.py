@@ -52,8 +52,8 @@ tcd_dir = 's3://gfw2-data/forest_cover/2000_treecover/'
 # For copying individual tiles to spot machine for testing
 for tile in biomass_tile_list:
 
-    s3_file_download('{0}Hansen_GFC2014_treecover2000_{1}.tif'.format(biomass_dir, tile), '.')  # tree cover density 2000 tile
-    s3_file_download('{0}{1}_biomass.tif'.format(tcd_dir, tile), '.')  # biomass 2000 tile
+    s3_file_download('{0}Hansen_GFC2014_treecover2000_{1}.tif'.format(tcd_dir, tile), '.')  # tree cover density 2000 tile
+    s3_file_download('{0}{1}_biomass.tif'.format(biomass_dir, tile), '.')  # biomass 2000 tile
 
 
 out_locn = 's3://gfw-files/dgibbs/test_join_biomass2000_tcd2000/'
