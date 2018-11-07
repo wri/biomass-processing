@@ -73,4 +73,4 @@ for tile in biomass_tile_list:
     ras_to_vec_cmd += ['--csv-process', 'area', '--prefix', 'biomass2000_tcd2000', '--separate']
 
     # subprocess.check_call(ras_to_vec_cmd, cwd=ras_cwd)
-    subprocess.check_call(ras_to_vec_cmd)
+    subprocess.check_call(ras_to_vec_cmd, cwd=ras_cwd)
