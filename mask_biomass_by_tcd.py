@@ -75,7 +75,7 @@ def mask_biomass_by_tcd(tile_id):
     if stats[0] > 0:
 
         print "  Data found in tile. Copying tile to s3..."
-        s3_folder = 's3://WHRC-carbon/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
+        s3_folder = 's3:/gfw2-data/climate/WHRC_biomass/WHRC_V4/Masked_to_{}tcd/'.format(tcd_mask)
         cmd = ['aws', 's3', 'cp', outname, s3_folder]
         subprocess.check_call(cmd)
         print "    Tile copied to s3"
@@ -89,7 +89,7 @@ def mask_biomass_by_tcd(tile_id):
 ### Actually masks the biomass tiles by tree cover density
 
 # Location of the biomass tiles on s3
-s3_biomass_locn = 's3://WHRC-carbon/WHRC_V4/Processed/'
+s3_biomass_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
 
 print "Checking if biomass tiles are already downloaded..."
 

@@ -87,7 +87,7 @@ def process_tile(tile_id):
     print "    Tile warped"
 
     print "  Copying tile to s3..."
-    s3_folder = 's3://WHRC-carbon/WHRC_V4/Processed/'
+    s3_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
     cmd = ['aws', 's3', 'cp', out, s3_folder]
     subprocess.check_call(cmd)
     print "    Tile copied to s3"
@@ -96,7 +96,7 @@ def process_tile(tile_id):
 ### Actually processes the tiles
 
 # Location of the tiles on s3
-s3_locn = 's3://WHRC-carbon/WHRC_V4/As_provided/'
+s3_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/As_provided/'
 
 print "Checking if tiles are already downloaded..."
 

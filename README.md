@@ -1,7 +1,7 @@
 ### Biomass processing procedures for Woods Hole Research Center version 4, delivered June 2018:
 
 Woods Hole version 4 delivery: 
-   - File example: s3://WHRC-carbon/WHRC_V4/As_provided/Afrotropic_MapV4_00N_000E.tif
+   - File example: s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/As_provided/Afrotropic_MapV4_00N_000E.tif
    - Units: megagrams of biomass/hectare
    - Note: In the Woods Hole delivery, some tiles had their data split between multiple ecoregions. For example, 10S_120E is found in the Australia ecoregion and the Tropical Asia ecoregion, while 30N_100W is found in the Neotropic ecoregion and the Nearctic ecoregion. There were around 15 tiles with data from multiple ecoregions. In these tiles, the data from the two ecoregions are non-overlapping, i.e. where ecoregion1 says Nodata, ecoregion2 has data and vice versa.
     
