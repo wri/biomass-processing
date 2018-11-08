@@ -1,7 +1,12 @@
 
 import os
 import subprocess
-from osgeo import gdal
+
+### need to install some files beforehand
+### sudo apt install nco
+### sudo pip install xarray
+### sudo pip install scipy
+### sudo pip install netcdf4
 
 def s3_folder_download(source, dest):
     cmd = ['aws', 's3', 'cp', source, dest, '--recursive']
@@ -35,8 +40,8 @@ def list_tiles():
 
 print "Making list of biomass tiles..."
 # biomass_tile_list = list_tiles()
-biomass_tile_list = ['10N_080W', '40N_120E'] # test tiles
-biomass_tile_list = ['10N_080W'] # test tiles
+biomass_tile_list = ['10N_080W', '40N_120E', '00N_000E'] # test tiles
+# biomass_tile_list = ['10N_080W'] # test tiles
 print "  Biomass tile list retrieved. There are", len(biomass_tile_list), "biomass tiles total."
 
 # Location of the biomass tiles on s3
@@ -68,7 +73,7 @@ for tile in biomass_tile_list:
 
     ras_cwd = r'/home/ubuntu/raster-to-tsv'
     ras_to_vec_cmd = ['python', 'write-tsv.py', '--datasets', biomass_local, tcd_local, '--s3-output', out_locn]
-    ras_to_vec_cmd += ['--threads', '1', '--csv-process', 'area', '--prefix', 'biomass2000_tcd2000', '--separate']
+    ras_to_vec_cmd += ['--threads', '20', '--csv-process', 'area', '--prefix', 'biomass2000_tcd2000', '--separate']
 
     # subprocess.check_call(ras_to_vec_cmd, cwd=ras_cwd)
     subprocess.check_call(ras_to_vec_cmd, cwd=ras_cwd)
