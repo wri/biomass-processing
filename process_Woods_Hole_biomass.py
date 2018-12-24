@@ -1,6 +1,6 @@
 ### This script processes raw Woods Hole biomass tiles to conform to Hansen loss and tree cover density tiles
 ### in terms of pixel size, tile extent, pixel alignment, compression, etc.
-### It requires only biomass tiles.
+### It requires only biomass tiles and it exports only tiles with biomass values.
 
 ### David Gibbs, World Resources Institute, started July 2018
 
@@ -95,7 +95,7 @@ def process_tile(tile_id):
     stats = srcband.GetStatistics(True, True)
     print "  Tile stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
 
-    if stats[0] > 0:
+    if stats[1] > 0:
 
         print "  Data found in {}. Copying tile to s3...".format(tile_id)
         cmd = ['aws', 's3', 'cp', out, out_folder]
