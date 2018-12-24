@@ -93,7 +93,7 @@ def process_tile(tile_id):
     gtif = gdal.Open(out)
     srcband = gtif.GetRasterBand(1)
     stats = srcband.GetStatistics(True, True)
-    print "  Tile stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
+    print "  Tile %.3f stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (tile_id, stats[0], stats[1], stats[2], stats[3])
 
     if stats[1] > 0:
 
