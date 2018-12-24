@@ -7,6 +7,7 @@
 import subprocess
 import os
 import multiprocessing
+from osgeo import gdal
 
 # Copies the tiles in the s3 folder to the spot machine
 def s3_to_spot(folder):
@@ -81,22 +82,38 @@ def process_tile(tile_id):
     print "    Coordinates are: ymax-", ymax, "; ymin-", ymin, "; xmax-", xmax, "; xmin-", xmin
 
     print "  Warping tile..."
-    out = '{}_biomass.tif'.format(tile_id)
+    out = '{}_t_aboveground_biomass_ha_2000.tif'.format(tile_id)
     warp = ['gdalwarp', '-t_srs', 'EPSG:4326', '-co', 'COMPRESS=LZW', '-tr', '0.00025', '0.00025', '-tap', '-te', xmin, ymin, xmax, ymax, '-dstnodata', '-9999', vrtname, out]
     subprocess.check_call(warp)
     print "    Tile warped"
 
-    print "  Copying tile to s3..."
-    s3_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
-    cmd = ['aws', 's3', 'cp', out, s3_folder]
-    subprocess.check_call(cmd)
-    print "    Tile copied to s3"
+    print "Checking if {} contains any data...".format(tile_id)
+    # Source: http://gis.stackexchange.com/questions/90726
+    # Opens raster and chooses band to find min, max
+    gtif = gdal.Open(out)
+    srcband = gtif.GetRasterBand(1)
+    stats = srcband.GetStatistics(True, True)
+    print "  Tile stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
+
+    if stats[0] > 0:
+
+        print "  Data found in {}. Copying tile to s3...".format(tile_id)
+        cmd = ['aws', 's3', 'cp', out, out_folder]
+        subprocess.check_call(cmd)
+        print "    Tile copied to s3"
+
+    else:
+
+        print "  No data found. Not copying {}.".format(tile_id)
 
 
 ### Actually processes the tiles
 
 # Location of the tiles on s3
 s3_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/As_provided/'
+
+# Where the tiles will be output to
+out_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
 
 print "Checking if tiles are already downloaded..."
 

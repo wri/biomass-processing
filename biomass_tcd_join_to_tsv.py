@@ -2,6 +2,9 @@
 import os
 import subprocess
 
+### git clone https://github.com/wri/raster-to-tsv
+### git clone https://github.com/wri/biomass-processing
+
 ### need to install some files beforehand
 ### sudo apt install nco
 ### sudo pip install xarray
