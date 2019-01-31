@@ -118,7 +118,7 @@ out_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed_20190131/'
 
 print "Checking if tiles are already downloaded..."
 
-if os.path.exists('./Neotropic_MapV4_30N_110W.tif') == False:       # This is a bad way to check if files are downloaded but doing it anyhow
+if os.path.exists('./*MapV4*.tif') == False:       # This is a bad way to check if files are downloaded but doing it anyhow
 
     # Copies all the tiles in the s3 folder
     print "  Copying raw tiles to spot machine..."
