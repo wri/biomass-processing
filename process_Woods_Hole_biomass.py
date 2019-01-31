@@ -83,7 +83,8 @@ def process_tile(tile_id):
 
     print "  Warping tile..."
     out = '{}_t_aboveground_biomass_ha_2000.tif'.format(tile_id)
-    warp = ['gdalwarp', '-t_srs', 'EPSG:4326', '-co', 'COMPRESS=LZW', '-tr', '0.00025', '0.00025', '-tap', '-te', xmin, ymin, xmax, ymax, '-dstnodata', '-9999', vrtname, out]
+    warp = ['gdalwarp', '-t_srs', 'EPSG:4326', '-co', 'COMPRESS=LZW', '-tr', '0.00025', '0.00025', '-tap', '-te',
+            xmin, ymin, xmax, ymax, '-dstnodata', '-0', vrtname, out, '-ot', 'Int16', '-co', 'bits=10']
     subprocess.check_call(warp)
     print "    Tile warped"
 
@@ -113,7 +114,7 @@ def process_tile(tile_id):
 s3_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/As_provided/'
 
 # Where the tiles will be output to
-out_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
+out_folder = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed_20190131/'
 
 print "Checking if tiles are already downloaded..."
 
