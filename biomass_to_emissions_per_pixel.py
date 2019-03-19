@@ -60,7 +60,7 @@ def emissions_per_pixel(tile_id):
     print "  Emissions calculated"
 
     print "Copying tile to s3..."
-    s3_folder = 's3://gfw2-data/climate/Hansen_emissions/2017_loss/per_pixel/'
+    s3_folder = 's3://gfw2-data/climate/Hansen_emissions/2018_loss/per_pixel/'
     cmd = ['aws', 's3', 'cp', outname, s3_folder]
     subprocess.check_call(cmd)
     print "  Tile copied to s3"
@@ -69,7 +69,7 @@ def emissions_per_pixel(tile_id):
 ### Converts emissions from per hectare to per pixel
 
 # Location of the emissions/ha tiles on s3
-s3_emiss_ha_locn = 's3://gfw2-data/climate/Hansen_emissions/2017_loss/per_hectare/'
+s3_emiss_ha_locn = 's3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/'
 
 # Location of the pixel area tiles on s3
 s3_area_locn = 's3://gfw2-data/analyses/area_28m/'

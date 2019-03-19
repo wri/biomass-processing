@@ -69,7 +69,7 @@ def biomass_to_emissions_ha(tile_id):
     if stats[0] > 0:
 
         print "  Data found in tile. Copying tile to s3..."
-        s3_folder = 's3://gfw2-data/climate/Hansen_emissions/2017_loss/per_hectare/'
+        s3_folder = 's3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/'
         cmd = ['aws', 's3', 'cp', outname, s3_folder]
         subprocess.check_call(cmd)
         print "    Tile copied to s3"
@@ -85,7 +85,7 @@ def biomass_to_emissions_ha(tile_id):
 s3_biomass_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
 
 # Location of the annual tree cover loss tiles on s3
-s3_tcd_locn = 's3://gfw2-data/forest_change/hansen_2017/'
+s3_tcd_locn = 's3://gfw2-data/forest_change/hansen_2018/'
 
 # Copies all the tiles in the s3 folder
 print "  Copying biomass tiles to spot machine..."
