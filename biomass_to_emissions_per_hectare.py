@@ -42,7 +42,7 @@ def biomass_to_emissions_ha(tile_id):
     megagrams_to_tons = 1
 
     # Names of the input biomass and TCD tiles
-    biomass_tile = '{}_biomass.tif'.format(tile_id)
+    biomass_tile = '{}_t_aboveground_biomass_ha_2000.tif'.format(tile_id)
     loss_tile = '{}.tif'.format(tile_id)
 
     # Output file name
