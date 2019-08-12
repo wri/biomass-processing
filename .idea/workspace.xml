@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cac315f9-02fc-49e9-8e87-9ef88fe17fc5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biomass_to_emissions_per_hectare.py" beforeDir="false" afterPath="$PROJECT_DIR$/biomass_to_emissions_per_hectare.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,25 +40,25 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="md" value="73" />
-          <entry key="py" value="2746" />
+          <entry key="md" value="293" />
+          <entry key="py" value="2773" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Markdown" value="73" />
-          <entry key="Python" value="2746" />
+          <entry key="Markdown" value="293" />
+          <entry key="Python" value="2773" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/biomass_to_emissions_per_hectare.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="95" column="25" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="25" />
+            <state relative-caret-position="431">
+              <caret line="107" column="214" lean-forward="true" selection-start-line="107" selection-start-column="3" selection-end-line="107" selection-end-column="214" />
               <folding>
                 <element signature="e#142#159#0" expanded="true" />
               </folding>
@@ -77,12 +78,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="204">
-                <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+              <first_editor relative-caret-position="289">
+                <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
               </first_editor>
               <second_editor />
             </state>
@@ -117,18 +118,18 @@
         <option value="$PROJECT_DIR$/biomass_to_emissions.py" />
         <option value="$PROJECT_DIR$/mask_biomass_by_tcd.py" />
         <option value="$PROJECT_DIR$/biomass_tcd_join_to_tsv.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/process_Woods_Hole_biomass.py" />
         <option value="$PROJECT_DIR$/biomass_to_emissions_per_pixel.py" />
         <option value="$PROJECT_DIR$/biomass_to_emissions_per_hectare.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="37" />
+    <option name="y" value="128" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -242,23 +243,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="204">
-            <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/biomass_to_emissions_per_hectare.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="95" column="25" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="25" />
+        <state relative-caret-position="431">
+          <caret line="107" column="214" lean-forward="true" selection-start-line="107" selection-start-column="3" selection-end-line="107" selection-end-column="214" />
           <folding>
             <element signature="e#142#159#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="289">
+            <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

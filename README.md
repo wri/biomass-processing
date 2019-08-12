@@ -34,6 +34,8 @@ Run Hadoop:
 Convert aboveground WH biomass to tCO2 emissions/hectare:
    - Code: biomass_to_emissions_per_hecrate.py (contained in this repo)
    - Process: It masks WH biomass 2000 tiles to Hansen loss pixels and converts those pixels from biomass to emissions
+   - This script has three command line arguments: input aboveground biomass s3 folder (`--biomass`), Hansen loss s3 folder (`--loss-year`), and output s3 folder (`--output-dir`).
+   - Example code is `python biomass_to_emissions_per_hectare.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/`
    - Units of output tiles: tCO2/hectare
    - Note: This should be run every time a new Hansen loss year is delivered
    - Note: It is not used for further analyses at this point; it is just for putting on the Open Data Portal for people to download

@@ -104,6 +104,9 @@ out_dir = args.output_dir
 # Standard output directory on s3
 # s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
 
+# Example run code:
+#  python biomass_to_emissions_per_hectare.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
+
 # Copies all the tiles in the s3 folder
 print "  Copying biomass tiles to spot machine..."
 s3_to_spot(biomass_dir)
