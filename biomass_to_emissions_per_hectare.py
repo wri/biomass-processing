@@ -2,57 +2,10 @@
 # wherever there is a Hansen loss pixel.
 
 import subprocess
-import os
-import re
 import argparse
 import multiprocessing
+import utilities
 from osgeo import gdal
-
-# Copies the tiles in the s3 folder to the spot machine
-def s3_to_spot(folder):
-
-    dld = ['aws', 's3', 'cp', folder, '.', '--recursive']
-    subprocess.check_call(dld)
-
-
-# Gets the tile id from the full tile name using a regular expression
-def get_tile_id(tile_name):
-
-    # based on https://stackoverflow.com/questions/20003025/find-1-letter-and-2-numbers-using-regex and https://docs.python.org/3.4/howto/regex.html
-    tile_id = re.search("[0-9]{2}[A-Z][_][0-9]{3}[A-Z]", tile_name).group()
-
-    return tile_id
-
-# Lists all the tiles in a folder on s3
-def list_tiles(source):
-
-    print "Creating list of tiles..."
-
-    ## For an s3 folder in a bucket using AWSCLI
-    # Captures the list of the files in the folder
-    out = subprocess.Popen(['aws', 's3', 'ls', source], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    stdout, stderr = out.communicate()
-
-    # Writes the output string to a text file for easier interpretation
-    biomass_tiles = open("tiles.txt", "w")
-    biomass_tiles.write(stdout)
-    biomass_tiles.close()
-
-    file_list = []
-
-    # Iterates through the text file to get the names of the tiles and appends them to list
-    with open("tiles.txt", 'r') as tile:
-        for line in tile:
-            num = len(line.strip('\n').split(" "))
-            tile_name = line.strip('\n').split(" ")[num - 1]
-
-            # Only tifs will be in the tile list
-            if '.tif' in tile_name:
-
-                tile_id = get_tile_id(tile_name)
-                file_list.append(tile_id)
-
-    return file_list
 
 # Converts aboveground biomass per hectare to emissions from aboveground biomass per hectare
 def biomass_to_emissions_ha(tile_id):
@@ -130,25 +83,34 @@ out_dir = args.output_dir
 
 # Copies tree loss tiles to spot machine
 print "  Copying loss tiles to spot machine..."
-s3_to_spot(loss_dir)
+utilities.s3_to_spot(loss_dir)
 print "    Loss tiles copied"
 
 print "Getting list of loss tiles..."
-loss_file_list = list_tiles(loss_dir)
+loss_file_list = utilities.list_tiles(loss_dir)
 print loss_file_list
-print "  Biomass tile list retrieved. There are", len(loss_file_list), "biomass tiles total."
+print "  Loss tile list retrieved. There are", len(loss_file_list), "loss tiles total."
 
-# Copies all the biomass tiles in the s3 folder
+# Copies biomass tiles in the s3 folder
 print "  Copying biomass tiles to spot machine..."
-s3_to_spot(biomass_dir)
+utilities.s3_to_spot(biomass_dir)
 print "    Biomass tiles copied"
 
+print "Getting list of biomass tiles..."
+biomass_file_list = utilities.list_tiles(biomass_dir)
+print biomass_file_list
+print "  Loss tile list retrieved. There are", len(biomass_file_list), "loss tiles total."
 
+# In order to be processed, a tile must have both loss and biomass.
+# There are some tiles that have only one of those.
+# This creates a list of tiles that have loss and biomass.
+shared_tile_list = list(set(biomass_file_list).intersection(loss_file_list))
+print "  List of tiles with both biomass and loss retrieved. There are", len(shared_tile_list), "loss tiles total."
 
 # For multiple processors
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/3)
-pool.map(biomass_to_emissions_ha, loss_file_list)
+pool.map(biomass_to_emissions_ha, shared_tile_list)
 
 # # For a single processor
 # for tile in loss_file_list:
