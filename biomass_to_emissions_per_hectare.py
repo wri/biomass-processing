@@ -3,6 +3,7 @@
 
 import subprocess
 import os
+import re
 import argparse
 import multiprocessing
 from osgeo import gdal
@@ -14,24 +15,43 @@ def s3_to_spot(folder):
     subprocess.check_call(dld)
 
 
-# Lists all the tiles on the spot machine
-def list_tiles():
+# Gets the tile id from the full tile name using a regular expression
+def get_tile_id(tile_name):
 
-    # Makes a text file of the tifs in the folder on the spot machine
-    os.system('ls *biomass*.tif > spot_biomass_tiles.txt')
+    # based on https://stackoverflow.com/questions/20003025/find-1-letter-and-2-numbers-using-regex and https://docs.python.org/3.4/howto/regex.html
+    tile_id = re.search("[0-9]{2}[A-Z][_][0-9]{3}[A-Z]", tile_name).group()
 
-    # List for the tile names
+    return tile_id
+
+# Lists all the tiles in a folder on s3
+def list_tiles(source):
+
+    print "Creating list of tiles..."
+
+    ## For an s3 folder in a bucket using AWSCLI
+    # Captures the list of the files in the folder
+    out = subprocess.Popen(['aws', 's3', 'ls', source], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout, stderr = out.communicate()
+
+    # Writes the output string to a text file for easier interpretation
+    biomass_tiles = open("tiles.txt", "w")
+    biomass_tiles.write(stdout)
+    biomass_tiles.close()
+
     file_list = []
 
     # Iterates through the text file to get the names of the tiles and appends them to list
-    with open('spot_biomass_tiles.txt', 'r') as tile:
+    with open("tiles.txt", 'r') as tile:
         for line in tile:
-            # Extracts the tile name from the file name
-            tile_short = line[0:8]
+            num = len(line.strip('\n').split(" "))
+            tile_name = line.strip('\n').split(" ")[num - 1]
 
-            file_list.append(tile_short)
+            # Only tifs will be in the tile list
+            if '.tif' in tile_name:
 
-    # The lists of unique tile names and all tile names
+                tile_id = get_tile_id(tile_name)
+                file_list.append(tile_id)
+
     return file_list
 
 # Converts aboveground biomass per hectare to emissions from aboveground biomass per hectare
@@ -107,26 +127,29 @@ out_dir = args.output_dir
 # Example run code:
 #  python biomass_to_emissions_per_hectare.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
 
-# Copies all the tiles in the s3 folder
-print "  Copying biomass tiles to spot machine..."
-s3_to_spot(biomass_dir)
-print "    Biomass tiles copied"
-
-print "Getting list of biomass tiles..."
-biomass_file_list = list_tiles()
-print biomass_file_list
-print "  Biomass tile list retrieved. There are", len(biomass_file_list), "biomass tiles total."
 
 # Copies tree loss tiles to spot machine
 print "  Copying loss tiles to spot machine..."
 s3_to_spot(loss_dir)
 print "    Loss tiles copied"
 
+print "Getting list of loss tiles..."
+loss_file_list = list_tiles(loss_dir)
+print loss_file_list
+print "  Biomass tile list retrieved. There are", len(loss_file_list), "biomass tiles total."
+
+# Copies all the biomass tiles in the s3 folder
+print "  Copying biomass tiles to spot machine..."
+s3_to_spot(biomass_dir)
+print "    Biomass tiles copied"
+
+
+
 # For multiple processors
 count = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(count/3)
-pool.map(biomass_to_emissions_ha, biomass_file_list)
+pool.map(biomass_to_emissions_ha, loss_file_list)
 
 # # For a single processor
-# for tile in biomass_file_list:
+# for tile in loss_file_list:
 #     mask_biomass_by_loss(tile)

@@ -132,5 +132,5 @@ pool.map(mask_biomass_by_tcd, biomass_file_list)
 # This produced 259 tiles-- it's fewer than the 315 that went into the masking because many of the tiles didn't have biomass after masking
 
 # # For a single processor
-# for tile in biomass_file_list:
+# for tile in loss_file_list:
 #     mask_biomass_by_tcd(tile)
