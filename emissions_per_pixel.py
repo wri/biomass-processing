@@ -32,8 +32,22 @@ def emissions_per_pixel(tile_id, out_dir):
     subprocess.check_call(cmd)
     print "  Emissions calculated"
 
-    print "Copying tile to s3..."
-    out_dir_full = out_dir + "per_pixel/"
-    cmd = ['aws', 's3', 'cp', outname, out_dir_full]
-    subprocess.check_call(cmd)
-    print "  Tile copied to s3"
+    print "Checking if masked tile contains any data in it...".format(tile_id)
+    # Source: http://gis.stackexchange.com/questions/90726
+    # Opens raster and chooses band to find min, max
+    gtif = gdal.Open(outname)
+    srcband = gtif.GetRasterBand(1)
+    stats = srcband.GetStatistics(True, True)
+    print "  Tile stats =  Minimum=%.3f, Maximum=%.3f, Mean=%.3f, StdDev=%.3f" % (stats[0], stats[1], stats[2], stats[3])
+
+    if stats[0] > 0:
+
+        print "  Data found in tile. Copying tile to s3..."
+        out_dir_full = out_dir + "per_pixel/"
+        cmd = ['aws', 's3', 'cp', outname, out_dir_full]
+        subprocess.check_call(cmd)
+        print "    Tile copied to s3"
+
+    else:
+
+        print "  No data found. Not copying tile."

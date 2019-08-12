@@ -37,7 +37,7 @@ def main():
     # s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
 
     # Example run code:
-    #  python biomass_to_emissions_per_hectare.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
+    #  python biomass_to_emissions.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/
 
 
     # Copies tree loss tiles to spot machine
@@ -77,15 +77,13 @@ def main():
     pool.close()
     pool.join()
 
+    # This uses just about 230 GB, which is fine on an m4.16xlarge machine
     num_of_processes = 15
     pool = Pool(num_of_processes)
     pool.map(partial(emissions_per_pixel.emissions_per_pixel, out_dir=out_dir), shared_tile_list)
     pool.close()
     pool.join()
 
-    # # For a single processor
-    # for tile in loss_file_list:
-    #     mask_biomass_by_loss(tile)
 
 if __name__ == '__main__':
     main()
