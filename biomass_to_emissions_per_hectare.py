@@ -3,6 +3,7 @@
 
 import subprocess
 import os
+import argparse
 import multiprocessing
 from osgeo import gdal
 
@@ -17,7 +18,7 @@ def s3_to_spot(folder):
 def list_tiles():
 
     # Makes a text file of the tifs in the folder on the spot machine
-    os.system('ls *biomass.tif > spot_biomass_tiles.txt')
+    os.system('ls *biomass*.tif > spot_biomass_tiles.txt')
 
     # List for the tile names
     file_list = []
@@ -81,24 +82,41 @@ def biomass_to_emissions_ha(tile_id):
 
 ## Actually masks the biomass tiles by tree cover density
 
-# Location of the biomass tiles on s3
-s3_biomass_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
+parser = argparse.ArgumentParser(description='Convert WHRC biomass 2000/ha to CO2/ha masked by Hansen loss')
+parser.add_argument('--biomass', '-b', required=True,
+                    help='WHRC aboveground biomass in 2000/ha to use as basis for CO2')
+parser.add_argument('--loss-year', '-l', required=True,
+                    help='Hansen loss for 2001 to present year')
+parser.add_argument('--output-dir', '-o', required=True,
+                    help='Output s3 directory for CO2/ha masked by Hansen loss')
+args = parser.parse_args()
 
-# Location of the annual tree cover loss tiles on s3
-s3_loss_locn = 's3://gfw2-data/forest_change/hansen_2018/'
+biomass_dir = args[0]
+loss_dir = args[1]
+out_dir = args[2]
+
+# Location of the biomass tiles on s3
+#s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/
+
+# Standard location of the annual tree cover loss tiles on s3
+# s3://gfw2-data/forest_change/hansen_2018/
+
+# Standard output directory on s3
+# s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
 
 # Copies all the tiles in the s3 folder
 print "  Copying biomass tiles to spot machine..."
-s3_to_spot(s3_biomass_locn)
+s3_to_spot(biomass_dir)
 print "    Biomass tiles copied"
 
 print "Getting list of biomass tiles..."
 biomass_file_list = list_tiles()
+print biomass_file_list
 print "  Biomass tile list retrieved. There are", len(biomass_file_list), "biomass tiles total."
 
 # Copies tree loss tiles to spot machine
 print "  Copying loss tiles to spot machine..."
-s3_to_spot(s3_loss_locn)
+s3_to_spot(loss_dir)
 print "    Loss tiles copied"
 
 # For multiple processors
