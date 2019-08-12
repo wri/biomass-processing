@@ -86,3 +86,6 @@ def main():
     # # For a single processor
     # for tile in loss_file_list:
     #     mask_biomass_by_loss(tile)
+
+if __name__ == '__main__':
+    main()
