@@ -91,12 +91,12 @@ parser.add_argument('--output-dir', '-o', required=True,
                     help='Output s3 directory for CO2/ha masked by Hansen loss')
 args = parser.parse_args()
 
-biomass_dir = args[0]
-loss_dir = args[1]
-out_dir = args[2]
+biomass_dir = args.biomass
+loss_dir = args.loss_year
+out_dir = args.output_dir
 
 # Location of the biomass tiles on s3
-#s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/
+# s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/
 
 # Standard location of the annual tree cover loss tiles on s3
 # s3://gfw2-data/forest_change/hansen_2018/
