@@ -85,7 +85,7 @@ def biomass_to_emissions_ha(tile_id):
 s3_biomass_locn = 's3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/'
 
 # Location of the annual tree cover loss tiles on s3
-s3_tcd_locn = 's3://gfw2-data/forest_change/hansen_2018/'
+s3_loss_locn = 's3://gfw2-data/forest_change/hansen_2018/'
 
 # Copies all the tiles in the s3 folder
 print "  Copying biomass tiles to spot machine..."
@@ -97,9 +97,9 @@ biomass_file_list = list_tiles()
 print "  Biomass tile list retrieved. There are", len(biomass_file_list), "biomass tiles total."
 
 # Copies tree loss tiles to spot machine
-print "  Copying TCD tiles to spot machine..."
-s3_to_spot(s3_tcd_locn)
-print "    TCD tiles copied"
+print "  Copying loss tiles to spot machine..."
+s3_to_spot(s3_loss_locn)
+print "    Loss tiles copied"
 
 # For multiple processors
 count = multiprocessing.cpu_count()
