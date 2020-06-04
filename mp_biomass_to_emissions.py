@@ -33,20 +33,20 @@ def main():
     out_dir = args.output_dir
     max_year = args.year
 
-    # # Copies tree loss tiles to spot machine
-    # print "  Copying loss tiles to spot machine..."
-    # utilities.s3_to_spot(loss_dir)
-    # print "    Loss tiles copied"
+    # Copies tree loss tiles to spot machine
+    print "  Copying loss tiles to spot machine..."
+    utilities.s3_to_spot(loss_dir)
+    print "    Loss tiles copied"
 
     print "Getting list of loss tiles..."
     loss_file_list = utilities.list_tiles(loss_dir)
     print loss_file_list
     print "  Loss tile list retrieved. There are", len(loss_file_list), "loss tiles total."
 
-    # # Copies biomass tiles in the s3 folder
-    # print "  Copying biomass tiles to spot machine..."
-    # utilities.s3_to_spot(biomass_dir)
-    # print "    Biomass tiles copied"
+    # Copies biomass tiles in the s3 folder
+    print "  Copying biomass tiles to spot machine..."
+    utilities.s3_to_spot(biomass_dir)
+    print "    Biomass tiles copied"
 
     print "Getting list of biomass tiles..."
     biomass_file_list = utilities.list_tiles(biomass_dir)
@@ -59,19 +59,19 @@ def main():
     shared_tile_list = list(set(biomass_file_list).intersection(loss_file_list))
     print "  List of tiles with both biomass and loss retrieved. There are", len(shared_tile_list), "shared tiles total."
 
-    # # Copies biomass tiles in the s3 folder
-    # print "  Copying pixel area tiles to spot machine..."
-    # utilities.s3_to_spot('s3://gfw2-data/analyses/area_28m/')
-    # print "    Biomass tiles copied"
+    # Copies biomass tiles in the s3 folder
+    print "  Copying pixel area tiles to spot machine..."
+    utilities.s3_to_spot('s3://gfw2-data/analyses/area_28m/')
+    print "    Biomass tiles copied"
 
-    # # Peaks at about 180 GB, which is fine on an m4.16xlarge machine
-    # num_of_processes = 22
-    # pool = Pool(num_of_processes)
-    # pool.map(partial(emissions_per_hectare.biomass_to_emissions_ha, out_dir=out_dir, max_year=max_year), shared_tile_list)
-    # pool.close()
-    # pool.join()
+    # 22 processors peaks at about 180 GB, which is fine on an m4.16xlarge machine
+    num_of_processes = 22
+    pool = Pool(num_of_processes)
+    pool.map(partial(emissions_per_hectare.biomass_to_emissions_ha, out_dir=out_dir, max_year=max_year), shared_tile_list)
+    pool.close()
+    pool.join()
 
-    # This uses just about X GB, which is fine on an m4.16xlarge machine
+    # 15 processors peak at about 220 GB, which is fine on an m4.16xlarge machine
     num_of_processes = 15
     pool = Pool(num_of_processes)
     pool.map(partial(emissions_per_pixel.emissions_per_pixel, out_dir=out_dir, max_year=max_year), shared_tile_list)
