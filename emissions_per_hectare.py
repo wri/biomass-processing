@@ -11,7 +11,7 @@ from osgeo import gdal
 def biomass_to_emissions_ha(tile_id, out_dir):
 
     biomass_to_c = 0.5
-    c_to_co2 = 3.67
+    c_to_co2 = 3.66667
     megagrams_to_tons = 1
 
     # Names of the input biomass and TCD tiles

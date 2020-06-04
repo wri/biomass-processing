@@ -1,6 +1,9 @@
 # Converts the aboveground biomass 2000 tiles to aboveground CO2 emissions tiles (tons CO2/hectare)
 # wherever there is a Hansen loss pixel.
 
+# Example run code:
+#  python mp_biomass_to_emissions.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/
+
 import subprocess
 import argparse
 import multiprocessing
@@ -31,14 +34,10 @@ def main():
     # s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/
 
     # Standard location of the annual tree cover loss tiles on s3
-    # s3://gfw2-data/forest_change/hansen_2018/
+    # s3://gfw2-data/forest_change/hansen_2019/
 
     # Standard output directory on s3
     # s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
-
-    # Example run code:
-    #  python biomass_to_emissions.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/
-
 
     # Copies tree loss tiles to spot machine
     print "  Copying loss tiles to spot machine..."
@@ -64,7 +63,7 @@ def main():
     # There are some tiles that have only one of those.
     # This creates a list of tiles that have loss and biomass.
     shared_tile_list = list(set(biomass_file_list).intersection(loss_file_list))
-    print "  List of tiles with both biomass and loss retrieved. There are", len(shared_tile_list), "loss tiles total."
+    print "  List of tiles with both biomass and loss retrieved. There are", len(shared_tile_list), "shared tiles total."
 
     # Copies biomass tiles in the s3 folder
     print "  Copying pixel area tiles to spot machine..."
@@ -78,7 +77,7 @@ def main():
     pool.join()
 
     # This uses just about 230 GB, which is fine on an m4.16xlarge machine
-    num_of_processes = 15
+    num_of_processes = 22
     pool = Pool(num_of_processes)
     pool.map(partial(emissions_per_pixel.emissions_per_pixel, out_dir=out_dir), shared_tile_list)
     pool.close()
