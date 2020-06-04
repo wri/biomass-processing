@@ -33,29 +33,20 @@ def main():
     out_dir = args.output_dir
     max_year = args.year
 
-    # Location of the biomass tiles on s3
-    # s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/
-
-    # Standard location of the annual tree cover loss tiles on s3
-    # s3://gfw2-data/forest_change/hansen_2019/
-
-    # Standard output directory on s3
-    # s3://gfw2-data/climate/Hansen_emissions/2018_loss/per_hectare/
-
-    # Copies tree loss tiles to spot machine
-    print "  Copying loss tiles to spot machine..."
-    utilities.s3_to_spot(loss_dir)
-    print "    Loss tiles copied"
+    # # Copies tree loss tiles to spot machine
+    # print "  Copying loss tiles to spot machine..."
+    # utilities.s3_to_spot(loss_dir)
+    # print "    Loss tiles copied"
 
     print "Getting list of loss tiles..."
     loss_file_list = utilities.list_tiles(loss_dir)
     print loss_file_list
     print "  Loss tile list retrieved. There are", len(loss_file_list), "loss tiles total."
 
-    # Copies biomass tiles in the s3 folder
-    print "  Copying biomass tiles to spot machine..."
-    utilities.s3_to_spot(biomass_dir)
-    print "    Biomass tiles copied"
+    # # Copies biomass tiles in the s3 folder
+    # print "  Copying biomass tiles to spot machine..."
+    # utilities.s3_to_spot(biomass_dir)
+    # print "    Biomass tiles copied"
 
     print "Getting list of biomass tiles..."
     biomass_file_list = utilities.list_tiles(biomass_dir)
@@ -68,19 +59,20 @@ def main():
     shared_tile_list = list(set(biomass_file_list).intersection(loss_file_list))
     print "  List of tiles with both biomass and loss retrieved. There are", len(shared_tile_list), "shared tiles total."
 
-    # Copies biomass tiles in the s3 folder
-    print "  Copying pixel area tiles to spot machine..."
-    utilities.s3_to_spot('s3://gfw2-data/analyses/area_28m/')
-    print "    Biomass tiles copied"
+    # # Copies biomass tiles in the s3 folder
+    # print "  Copying pixel area tiles to spot machine..."
+    # utilities.s3_to_spot('s3://gfw2-data/analyses/area_28m/')
+    # print "    Biomass tiles copied"
 
-    num_of_processes = 22
-    pool = Pool(num_of_processes)
-    pool.map(partial(emissions_per_hectare.biomass_to_emissions_ha, out_dir=out_dir, max_year=max_year), shared_tile_list)
-    pool.close()
-    pool.join()
+    # # Peaks at about 180 GB, which is fine on an m4.16xlarge machine
+    # num_of_processes = 22
+    # pool = Pool(num_of_processes)
+    # pool.map(partial(emissions_per_hectare.biomass_to_emissions_ha, out_dir=out_dir, max_year=max_year), shared_tile_list)
+    # pool.close()
+    # pool.join()
 
-    # This uses just about 230 GB, which is fine on an m4.16xlarge machine
-    num_of_processes = 22
+    # This uses just about X GB, which is fine on an m4.16xlarge machine
+    num_of_processes = 15
     pool = Pool(num_of_processes)
     pool.map(partial(emissions_per_pixel.emissions_per_pixel, out_dir=out_dir, max_year=max_year), shared_tile_list)
     pool.close()
