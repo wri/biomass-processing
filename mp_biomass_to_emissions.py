@@ -2,7 +2,7 @@
 # wherever there is a Hansen loss pixel.
 
 # Example run code:
-#  python mp_biomass_to_emissions.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/
+#  python mp_biomass_to_emissions.py -b s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/ -l s3://gfw2-data/forest_change/hansen_2018/ -o s3://gfw2-data/climate/Hansen_emissions/2018_loss/ -y 2019
 
 import subprocess
 import argparse
@@ -24,11 +24,14 @@ def main():
                         help='Hansen loss for 2001 to present year')
     parser.add_argument('--output-dir', '-o', required=True,
                         help='Output s3 directory for CO2/ha masked by Hansen loss')
+    parser.add_argument('--year', '-y', required=True,
+                       help='Maximum tree cover loss year')
     args = parser.parse_args()
 
     biomass_dir = args.biomass
     loss_dir = args.loss_year
     out_dir = args.output_dir
+    max_year = args.year
 
     # Location of the biomass tiles on s3
     # s3://gfw2-data/climate/WHRC_biomass/WHRC_V4/Processed/
@@ -72,14 +75,14 @@ def main():
 
     num_of_processes = 22
     pool = Pool(num_of_processes)
-    pool.map(partial(emissions_per_hectare.biomass_to_emissions_ha, out_dir=out_dir), shared_tile_list)
+    pool.map(partial(emissions_per_hectare.biomass_to_emissions_ha, out_dir=out_dir, max_year=max_year), shared_tile_list)
     pool.close()
     pool.join()
 
     # This uses just about 230 GB, which is fine on an m4.16xlarge machine
     num_of_processes = 22
     pool = Pool(num_of_processes)
-    pool.map(partial(emissions_per_pixel.emissions_per_pixel, out_dir=out_dir), shared_tile_list)
+    pool.map(partial(emissions_per_pixel.emissions_per_pixel, out_dir=out_dir, max_year=max_year), shared_tile_list)
     pool.close()
     pool.join()
 

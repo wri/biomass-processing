@@ -8,17 +8,17 @@ import multiprocessing
 from osgeo import gdal
 
 # Converts aboveground biomass per hectare to emissions from aboveground biomass per hectare
-def emissions_per_pixel(tile_id, out_dir):
+def emissions_per_pixel(tile_id, out_dir, max_year):
 
     # m2 per hectare
     m2_per_ha = 100*100
 
     # Names of the input biomass and TCD tiles
-    emis_ha_tile = '{}_tCO2_ha_AGB_masked_by_loss.tif'.format(tile_id)
+    emis_ha_tile = '{0}_Mg_CO2_ha_AGB_masked_by_loss_{1}.tif'.format(tile_id, max_year)
     area_tile = 'hanson_2013_area_{}.tif'.format(tile_id)
 
     # Output file name
-    outname = '{}_tCO2_pixel_AGB_masked_by_loss.tif'.format(tile_id)
+    outname = '{0}_Mg_CO2_pixel_AGB_masked_by_loss_{1}.tif'.format(tile_id, max_year)
 
     # Equation argument for converting emissions from per hectare to per pixel.
     # First, multiplies the per hectare emissions by the area of the pixel in m2, then divides by the number of m2 in a hectare.
@@ -27,7 +27,7 @@ def emissions_per_pixel(tile_id, out_dir):
     # Argument for outputting file
     out = '--outfile={}'.format(outname)
 
-    print "Converting {} from tons CO2/ha to tons CO2/pixel...".format(tile_id)
+    print "Converting {} from Mg CO2/ha to Mg CO2/pixel...".format(tile_id)
     cmd = ['gdal_calc.py', '-A', emis_ha_tile, '-B', area_tile,  calc, out, '--NoDataValue=0', '--co', 'COMPRESS=LZW', '--overwrite']
     subprocess.check_call(cmd)
     print "  Emissions calculated"

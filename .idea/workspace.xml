@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cac315f9-02fc-49e9-8e87-9ef88fe17fc5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/biomass-processing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/biomass-processing.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biomass_to_emissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mp_biomass_to_emissions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emissions_per_hectare.py" beforeDir="false" afterPath="$PROJECT_DIR$/emissions_per_hectare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emissions_per_pixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/emissions_per_pixel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mp_biomass_to_emissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mp_biomass_to_emissions.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,14 +44,14 @@
         <counts>
           <entry key="dummy" value="3" />
           <entry key="md" value="484" />
-          <entry key="py" value="3768" />
+          <entry key="py" value="4000" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="484" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="3768" />
+          <entry key="Python" value="4000" />
         </counts>
       </usages-collector>
     </session>
@@ -64,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mp_biomass_to_emissions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="193" selection-start-line="4" selection-start-column="193" selection-end-line="4" selection-end-column="193" />
+            <state relative-caret-position="624">
+              <caret line="84" column="96" selection-start-line="84" selection-start-column="96" selection-end-line="84" selection-end-column="96" />
               <folding>
                 <element signature="e#142#159#0" expanded="true" />
               </folding>
@@ -76,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/emissions_per_hectare.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+            <state relative-caret-position="425">
+              <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
             </state>
           </provider>
         </entry>
@@ -85,8 +82,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/emissions_per_pixel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="46" column="56" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
+            <state relative-caret-position="403">
+              <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
               <folding>
                 <element signature="e#152#169#0" expanded="true" />
               </folding>
@@ -150,9 +147,9 @@
         <option value="$PROJECT_DIR$/biomass_to_emissions_per_pixel.py" />
         <option value="$PROJECT_DIR$/biomass_to_emissions_per_hectare.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/emissions_per_pixel.py" />
         <option value="$PROJECT_DIR$/biomass_to_emissions.py" />
         <option value="$PROJECT_DIR$/mp_biomass_to_emissions.py" />
+        <option value="$PROJECT_DIR$/emissions_per_pixel.py" />
         <option value="$PROJECT_DIR$/emissions_per_hectare.py" />
       </list>
     </option>
@@ -268,16 +265,6 @@
     <entry file="file://$PROJECT_DIR$/biomass_to_emissions_per_pixel.py" />
     <entry file="file://$PROJECT_DIR$/biomass_to_emissions_per_hectare.py" />
     <entry file="file://$PROJECT_DIR$/biomass_to_emission.py" />
-    <entry file="file://$PROJECT_DIR$/emissions_per_pixel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="46" column="56" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
-          <folding>
-            <element signature="e#152#169#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -300,18 +287,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mp_biomass_to_emissions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="193" selection-start-line="4" selection-start-column="193" selection-end-line="4" selection-end-column="193" />
+        <state relative-caret-position="624">
+          <caret line="84" column="96" selection-start-line="84" selection-start-column="96" selection-end-line="84" selection-end-column="96" />
           <folding>
             <element signature="e#142#159#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/emissions_per_pixel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+          <folding>
+            <element signature="e#152#169#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/emissions_per_hectare.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        <state relative-caret-position="425">
+          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
         </state>
       </provider>
     </entry>
